@@ -54,9 +54,9 @@ func TestPickupUseCase_PropertyBasedGeneration(t *testing.T) {
 	ctx := context.Background()
 
 	origins := []domain.LatLng{
-		{Latitude: 47.2357, Longitude: 39.7015}, // Rostov-on-Don
-		{Latitude: 55.7558, Longitude: 37.6173}, // Moscow
-		{Latitude: 59.9343, Longitude: 30.3351}, // Saint Petersburg
+		{Latitude: 47.2357, Longitude: 39.7015},   // Rostov-on-Don
+		{Latitude: 55.7558, Longitude: 37.6173},   // Moscow
+		{Latitude: 59.9343, Longitude: 30.3351},   // Saint Petersburg
 		{Latitude: -33.8688, Longitude: 151.2093}, // Sydney
 	}
 

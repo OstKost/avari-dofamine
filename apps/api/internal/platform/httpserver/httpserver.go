@@ -138,10 +138,21 @@ func corsMiddleware() func(http.Handler) http.Handler {
 			// в composition root и передаётся сюда через переменную окружения
 			// в дальнейших доработках; на этапе bootstrap — permissive для
 			// локальной разработки, ужесточяется в EPIC-01 при подключении auth.
-			w.Header().Set("Access-Control-Allow-Origin", r.Header.Get("Origin"))
+			origin := r.Header.Get("Origin")
+			if origin != "" {
+				w.Header().Set("Access-Control-Allow-Origin", origin)
+			}
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
 			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
-			w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+			reqHeaders := r.Header.Get("Access-Control-Request-Headers")
+			if reqHeaders != "" {
+				w.Header().Set("Access-Control-Allow-Headers", reqHeaders)
+			} else {
+				w.Header().Set("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, Origin, X-Guest-ID, X-Request-ID, Traceparent, Baggage")
+			}
+			w.Header().Set("Access-Control-Expose-Headers", "Content-Length, Content-Type, Set-Cookie")
+			w.Header().Set("Access-Control-Max-Age", "86400")
 
 			if r.Method == http.MethodOptions {
 				w.WriteHeader(http.StatusNoContent)

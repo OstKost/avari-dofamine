@@ -149,17 +149,17 @@ func (r *OrderRepository) GetByID(ctx context.Context, id uuid.UUID) (*domain.Or
 	`
 
 	var (
-		orderID        uuid.UUID
-		userID         uuid.UUID
-		statusStr      string
-		totalAmount    decimal.Decimal
-		pointID        uuid.UUID
-		pointName      string
-		pointLat       float64
-		pointLon       float64
-		pointDist      float64
-		createdAt      time.Time
-		updatedAt      time.Time
+		orderID     uuid.UUID
+		userID      uuid.UUID
+		statusStr   string
+		totalAmount decimal.Decimal
+		pointID     uuid.UUID
+		pointName   string
+		pointLat    float64
+		pointLon    float64
+		pointDist   float64
+		createdAt   time.Time
+		updatedAt   time.Time
 	)
 
 	err := conn.QueryRow(ctx, query, id).Scan(

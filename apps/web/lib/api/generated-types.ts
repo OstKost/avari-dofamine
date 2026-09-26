@@ -58,6 +58,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/auth/quick-login": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * Быстрая аутентификация в 1 клик (Google, Apple, Yandex, Quick Email)
+         * @description Создает или находит пользователя по email/провайдеру и сразу выдает сессионные куки и access_token.
+         */
+        post: operations["quickLogin"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/auth/refresh": {
         parameters: {
             query?: never;
@@ -710,6 +730,48 @@ export interface operations {
                 };
             };
             401: components["responses"]["Unauthorized"];
+            429: components["responses"]["TooManyRequests"];
+        };
+    };
+    quickLogin: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /**
+                     * Format: email
+                     * @example user@gmail.com
+                     */
+                    email: string;
+                    /** @example CyberDopamine */
+                    nickname?: string;
+                    /**
+                     * @example google
+                     * @enum {string}
+                     */
+                    provider?: "google" | "yandex" | "apple" | "quick_email";
+                };
+            };
+        };
+        responses: {
+            /** @description Успешная быстрая авторизация */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        user?: components["schemas"]["User"];
+                        access_token?: string;
+                    };
+                };
+            };
+            400: components["responses"]["BadRequest"];
             429: components["responses"]["TooManyRequests"];
         };
     };

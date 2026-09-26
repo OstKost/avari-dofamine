@@ -67,13 +67,13 @@ func TestPaymentUseCase_Flow(t *testing.T) {
 	userID := uuid.New()
 
 	// 1. Initiate Payment
-	payment, err := uc.InitiatePayment(ctx, orderID, userID, "http://localhost/return")
+	payment, err := uc.InitiatePayment(ctx, orderID, userID, "150.00", "http://localhost/return")
 	if err != nil {
 		t.Fatalf("unexpected error initiating payment: %v", err)
 	}
 
-	if payment.AmountRUB() != domain.FixedPaymentAmountRUB {
-		t.Errorf("expected 10.00 RUB, got %s", payment.AmountRUB())
+	if payment.AmountRUB() != "150.00" {
+		t.Errorf("expected 150.00 RUB, got %s", payment.AmountRUB())
 	}
 	if payment.Status() != domain.StatusPending {
 		t.Errorf("expected status pending, got %s", payment.Status())
@@ -82,7 +82,7 @@ func TestPaymentUseCase_Flow(t *testing.T) {
 	// 2. Handle Succeeded Webhook
 	payload := map[string]interface{}{
 		"provider_payment_id": payment.ProviderPaymentID(),
-		"order_id":           orderID.String(),
+		"order_id":            orderID.String(),
 		"status":              string(contracts.PaymentStatusSucceeded),
 	}
 	rawBody, _ := json.Marshal(payload)

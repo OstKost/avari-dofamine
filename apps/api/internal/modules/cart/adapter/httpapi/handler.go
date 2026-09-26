@@ -29,6 +29,7 @@ func (h *Handler) Routes() chi.Router {
 	r.Delete("/items/{product_id}", h.handleRemoveItem)
 	r.Put("/pickup-point", h.handleSetPickupPoint)
 	r.Delete("/", h.handleClearCart)
+	r.Post("/merge", h.handleMergeCart)
 
 	return r
 }
@@ -206,6 +207,49 @@ func (h *Handler) handleClearCart(w http.ResponseWriter, r *http.Request) {
 
 	h.writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
+
+type MergeCartRequest struct {
+	GuestID string `json:"guest_id"`
+}
+
+func (h *Handler) handleMergeCart(w http.ResponseWriter, r *http.Request) {
+	userID, ok := httpserver.UserIDFromContext(r.Context())
+	if !ok {
+		h.writeError(w, http.StatusUnauthorized, "unauthorized")
+		return
+	}
+
+	var req MergeCartRequest
+	_ = json.NewDecoder(r.Body).Decode(&req)
+
+	guestIDStr := req.GuestID
+	if guestIDStr == "" {
+		if cookie, err := r.Cookie(httpserver.GuestIDCookie); err == nil && cookie.Value != "" {
+			guestIDStr = cookie.Value
+		}
+	}
+
+	guestID, err := uuid.Parse(guestIDStr)
+	if err != nil || guestID == uuid.Nil {
+		// Nothing to merge, return current cart
+		cart, err := h.cartUC.GetCart(r.Context(), userID)
+		if err != nil {
+			h.writeError(w, http.StatusInternalServerError, "failed to get cart")
+			return
+		}
+		h.writeJSON(w, http.StatusOK, cart)
+		return
+	}
+
+	cart, err := h.cartUC.MergeCart(r.Context(), guestID, userID)
+	if err != nil {
+		h.writeError(w, http.StatusInternalServerError, "failed to merge cart")
+		return
+	}
+
+	h.writeJSON(w, http.StatusOK, cart)
+}
+
 
 func (h *Handler) writeJSON(w http.ResponseWriter, status int, data interface{}) {
 	w.Header().Set("Content-Type", "application/json")

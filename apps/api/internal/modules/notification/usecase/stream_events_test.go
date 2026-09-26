@@ -7,11 +7,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/shopspring/decimal"
 	"github.com/ostkost/dopamine-market/api/internal/contracts"
 	"github.com/ostkost/dopamine-market/api/internal/modules/notification/domain"
 	"github.com/ostkost/dopamine-market/api/internal/modules/notification/usecase"
 	"github.com/ostkost/dopamine-market/api/internal/platform/pubsub"
+	"github.com/shopspring/decimal"
 )
 
 type mockOrderLookup struct {

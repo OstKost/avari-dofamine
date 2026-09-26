@@ -38,6 +38,7 @@ func (h *Handler) Routes() chi.Router {
 
 	r.Post("/register", h.handleRegister)
 	r.Post("/login", h.handleLogin)
+	r.Post("/quick-login", h.handleQuickLogin)
 	r.Post("/refresh", h.handleRefresh)
 	r.Post("/logout", h.handleLogout)
 
@@ -47,11 +48,19 @@ func (h *Handler) Routes() chi.Router {
 type RegisterRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
+	Nickname string `json:"nickname,omitempty"`
+}
+
+type QuickAuthRequest struct {
+	Email    string `json:"email"`
+	Nickname string `json:"nickname,omitempty"`
+	Provider string `json:"provider,omitempty"` // google, apple, yandex, quick
 }
 
 type UserResponse struct {
 	ID        string `json:"id"`
 	Email     string `json:"email"`
+	Nickname  string `json:"nickname"`
 	CreatedAt string `json:"created_at"`
 }
 
@@ -67,7 +76,7 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp, err := h.authUC.Register(r.Context(), req.Email, req.Password)
+	resp, err := h.authUC.Register(r.Context(), req.Email, req.Password, req.Nickname)
 	if err != nil {
 		switch {
 		case errors.Is(err, domain.ErrInvalidEmail):
@@ -88,6 +97,42 @@ func (h *Handler) handleRegister(w http.ResponseWriter, r *http.Request) {
 		User: UserResponse{
 			ID:        resp.User.ID().String(),
 			Email:     resp.User.Email().String(),
+			Nickname:  resp.User.DisplayName(),
+			CreatedAt: resp.User.CreatedAt().Format(time.RFC3339),
+		},
+		AccessToken: resp.Tokens.AccessToken,
+	})
+}
+
+func (h *Handler) handleQuickLogin(w http.ResponseWriter, r *http.Request) {
+	var req QuickAuthRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		h.writeError(w, http.StatusBadRequest, "invalid request body")
+		return
+	}
+
+	if req.Email == "" {
+		h.writeError(w, http.StatusBadRequest, "email is required")
+		return
+	}
+
+	resp, err := h.authUC.QuickLoginOrRegister(r.Context(), req.Email, req.Nickname)
+	if err != nil {
+		if errors.Is(err, domain.ErrInvalidEmail) {
+			h.writeError(w, http.StatusBadRequest, "invalid email format")
+			return
+		}
+		h.writeError(w, http.StatusInternalServerError, "quick login failed")
+		return
+	}
+
+	h.setAuthCookies(w, resp.Tokens)
+
+	h.writeJSON(w, http.StatusOK, AuthResponse{
+		User: UserResponse{
+			ID:        resp.User.ID().String(),
+			Email:     resp.User.Email().String(),
+			Nickname:  resp.User.DisplayName(),
 			CreatedAt: resp.User.CreatedAt().Format(time.RFC3339),
 		},
 		AccessToken: resp.Tokens.AccessToken,
@@ -117,6 +162,7 @@ func (h *Handler) handleLogin(w http.ResponseWriter, r *http.Request) {
 		User: UserResponse{
 			ID:        resp.User.ID().String(),
 			Email:     resp.User.Email().String(),
+			Nickname:  resp.User.DisplayName(),
 			CreatedAt: resp.User.CreatedAt().Format(time.RFC3339),
 		},
 		AccessToken: resp.Tokens.AccessToken,
@@ -192,6 +238,7 @@ func (h *Handler) HandleMe(w http.ResponseWriter, r *http.Request) {
 		"user": UserResponse{
 			ID:        user.ID().String(),
 			Email:     user.Email().String(),
+			Nickname:  user.DisplayName(),
 			CreatedAt: user.CreatedAt().Format(time.RFC3339),
 		},
 	})

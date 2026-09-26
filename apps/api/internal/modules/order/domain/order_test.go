@@ -42,13 +42,13 @@ func TestOrder_Invariants(t *testing.T) {
 		t.Fatalf("expected ErrPickupPointRequired, got %v", err)
 	}
 
-	// 3. Valid creation: price is always 10.00 RUB (INV-01)
+	// 3. Valid creation: price is sum of items (2 * 10 = 20.00 RUB)
 	order, err := domain.NewOrder(uuid.New(), userID, pickup, []domain.OrderItem{item}, time.Now())
 	if err != nil {
 		t.Fatalf("NewOrder failed: %v", err)
 	}
-	if !order.TotalAmountRUB().Equal(decimal.NewFromInt(10)) {
-		t.Errorf("expected 10.00 RUB, got %v", order.TotalAmountRUB())
+	if !order.TotalAmountRUB().Equal(decimal.NewFromInt(20)) {
+		t.Errorf("expected 20.00 RUB, got %v", order.TotalAmountRUB())
 	}
 	if order.Status() != domain.StatusCreated {
 		t.Errorf("expected status created, got %v", order.Status())

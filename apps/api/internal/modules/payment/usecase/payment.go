@@ -46,6 +46,7 @@ func (uc *PaymentUseCase) InitiatePayment(
 	ctx context.Context,
 	orderID uuid.UUID,
 	userID uuid.UUID,
+	amountRUB string,
 	returnURL string,
 ) (*domain.Payment, error) {
 	// Проверяем, существует ли уже платёж для этого заказа
@@ -58,7 +59,7 @@ func (uc *PaymentUseCase) InitiatePayment(
 	res, err := uc.provider.InitiatePayment(ctx, contracts.InitiatePaymentRequest{
 		OrderID:     orderID,
 		UserID:      userID,
-		AmountRUB:   domain.FixedPaymentAmountRUB, // INV-01
+		AmountRUB:   amountRUB,
 		Description: fmt.Sprintf("Оплата заказа %s", orderID),
 		ReturnURL:   returnURL,
 	})
@@ -72,6 +73,7 @@ func (uc *PaymentUseCase) InitiatePayment(
 		orderID,
 		uc.provider.Name(),
 		res.ProviderPaymentID,
+		amountRUB,
 		res.ConfirmationURL,
 	)
 	if err != nil {

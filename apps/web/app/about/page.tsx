@@ -27,7 +27,7 @@ export default function AboutPage() {
 
         <p className="text-base sm:text-lg text-[#9FB3C4] max-w-2xl mx-auto leading-relaxed">
           Мы создали маркетплейс, который дарит чистые эмоции онлайн-шопинга без стресса для кошелька. 
-          Выбирайте любые классные вещи, применяйте промокод и получайте микро-дозу радости всего за 10 рублей.
+          Выбирайте любые классные вещи, оформляйте заказы бесплатно и получайте микро-дозу радости.
         </p>
       </div>
 
@@ -43,7 +43,7 @@ export default function AboutPage() {
             </CardTitle>
           </CardHeader>
           <CardContent className="text-xs sm:text-sm text-[#9FB3C4] leading-relaxed">
-            Самая приятная часть шопинга — это выбор, ожидание курьера и открытие коробки. Мы сделали весь этот опыт доступным ровно за 10 рублей.
+            Самая приятная часть шопинга — это выбор, ожидание курьера и открытие коробки. Мы сделали весь этот опыт бесплатным и моментальным.
           </CardContent>
         </Card>
 
@@ -98,9 +98,9 @@ export default function AboutPage() {
 
           <div className="p-5 rounded-2xl bg-[#0B1622] border border-[#1E3A50] space-y-3 relative">
             <span className="text-3xl font-black text-amber-400/30">02</span>
-            <h4 className="font-bold text-base text-[#F4F1E8]">Промокод «DOPAMINE»</h4>
+            <h4 className="font-bold text-base text-[#F4F1E8]">Бесплатное оформление</h4>
             <p className="text-xs text-[#9FB3C4] leading-relaxed">
-              Спецпредложение автоматически пересчитывает общую стоимость любой корзины до фиксированных 10.00 ₽.
+              Применяйте промокоды со скидкой до 100% и оформляйте заказ в один клик.
             </p>
           </div>
 
@@ -134,9 +134,9 @@ export default function AboutPage() {
             <div className="p-4 rounded-2xl bg-[#0B1622] border border-[#1E3A50] flex items-start gap-3">
               <CheckCircle2 className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
               <div>
-                <h5 className="text-sm font-bold text-[#F4F1E8]">Фиксированная стоимость заказа</h5>
+                <h5 className="text-sm font-bold text-[#F4F1E8]">Бесплатные заказы</h5>
                 <p className="text-xs text-[#9FB3C4] mt-0.5">
-                  При оформлении заказа с промокодом итоговая сумма к оплате всегда составляет ровно 10.00 рублей.
+                  При оформлении заказа с промокодом скидка может достигать 100%. Оформление полностью бесплатное.
                 </p>
               </div>
             </div>
@@ -144,9 +144,9 @@ export default function AboutPage() {
             <div className="p-4 rounded-2xl bg-[#0B1622] border border-[#1E3A50] flex items-start gap-3">
               <CheckCircle2 className="h-5 w-5 text-amber-400 flex-shrink-0 mt-0.5" />
               <div>
-                <h5 className="text-sm font-bold text-[#F4F1E8]">Один платеж в процессе</h5>
+                <h5 className="text-sm font-bold text-[#F4F1E8]">Один активный заказ</h5>
                 <p className="text-xs text-[#9FB3C4] mt-0.5">
-                  Для защиты от случайных списаний пользователь может иметь только один заказ на этапе ожидания оплаты.
+                  Пользователь может в реальном времени отслеживать движение назначенного курьера на карте.
                 </p>
               </div>
             </div>
@@ -172,11 +172,11 @@ export default function AboutPage() {
           <div className="space-y-3 text-xs sm:text-sm">
             <details className="group p-4 rounded-2xl bg-[#0B1622] border border-[#1E3A50] [&_summary::-webkit-details-marker]:hidden">
               <summary className="font-bold text-[#F4F1E8] cursor-pointer flex items-center justify-between">
-                <span>Почему заказ стоит 10 рублей?</span>
+                <span>Как устроена доставка и симуляция?</span>
                 <span className="text-amber-400 group-open:rotate-180 transition-transform">▼</span>
               </summary>
               <p className="text-[#9FB3C4] mt-2 leading-relaxed">
-                Мы берем плату исключительно за запуск интерактивной симуляции доставки и генерацию вашего уникального дофаминового опыта.
+                Мы запускаем интерактивную стейт-машину доставки и генерируем уникальный опыт ожидания курьера.
               </p>
             </details>
 
@@ -214,7 +214,7 @@ export default function AboutPage() {
             Готовы получить свою дозу дофамина?
           </h3>
           <p className="text-sm text-[#9FB3C4] max-w-md mx-auto">
-            Переходите в каталог, выбирайте понравившиеся товары и оформляйте доставку всего за 10 рублей!
+            Переходите в каталог, выбирайте понравившиеся товары и оформляйте доставку бесплатно!
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
             <Link href="/catalog">

@@ -10,11 +10,11 @@ import (
 type Status string
 
 const (
-	StatusAssembling        Status = "assembling"
-	StatusCourierAssigned   Status = "courier_assigned"
-	StatusInTransit         Status = "in_transit"
-	StatusDeliveryDelayed   Status = "delivery_delayed"
-	StatusDelivered         Status = "delivered"
+	StatusAssembling      Status = "assembling"
+	StatusCourierAssigned Status = "courier_assigned"
+	StatusInTransit       Status = "in_transit"
+	StatusDeliveryDelayed Status = "delivery_delayed"
+	StatusDelivered       Status = "delivered"
 )
 
 // AllowedTransitions — допустимые переходы стейт-машины доставки (FR-DELIVERY-01, ADR-005).

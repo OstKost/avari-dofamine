@@ -196,7 +196,7 @@ export default function TechPage() {
           <span>Системные инварианты (Invariants Matrix)</span>
         </h2>
 
-        <div className="overflow-x-auto rounded-2xl border border-[#1E3A50] bg-[#0B1622]">
+        <div className="overflow-x-auto custom-scrollbar-x rounded-2xl border border-[#1E3A50] bg-[#0B1622]">
           <table className="w-full text-left text-xs sm:text-sm text-[#9FB3C4]">
             <thead className="bg-[#0E1B29] text-[#F4F1E8] border-b border-[#1E3A50] font-bold">
               <tr>
@@ -243,7 +243,7 @@ export default function TechPage() {
             <Terminal className="h-5 w-5" />
             <h3 className="font-bold text-base text-[#F4F1E8]">Структура слоев модуля (Hexagonal)</h3>
           </div>
-          <pre className="p-4 rounded-xl bg-[#050B14] border border-[#1E3A50] text-[11px] font-mono text-[#9FB3C4] overflow-x-auto leading-relaxed">
+          <pre className="p-4 rounded-xl bg-[#050B14] border border-[#1E3A50] text-[11px] font-mono text-[#9FB3C4] overflow-x-auto custom-scrollbar-x leading-relaxed">
 {`internal/modules/{name}/
 ├── domain/       # Чистые сущности, VO, правила (0 внешних deps)
 ├── port/         # Интерфейсы репозиториев, провайдеров

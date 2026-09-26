@@ -50,7 +50,7 @@ func NewAuthUseCase(
 	}
 }
 
-func (uc *AuthUseCase) Register(ctx context.Context, rawEmail, password string) (*AuthResponse, error) {
+func (uc *AuthUseCase) Register(ctx context.Context, rawEmail, password, nickname string) (*AuthResponse, error) {
 	email, err := domain.NewEmail(rawEmail)
 	if err != nil {
 		return nil, err
@@ -74,7 +74,7 @@ func (uc *AuthUseCase) Register(ctx context.Context, rawEmail, password string) 
 		return nil, fmt.Errorf("hashing password: %w", err)
 	}
 
-	user, err := domain.NewUser(uuid.New(), email, passwordHash, time.Now().UTC())
+	user, err := domain.NewUser(uuid.New(), email, passwordHash, nickname, time.Now().UTC())
 	if err != nil {
 		return nil, err
 	}
@@ -91,6 +91,55 @@ func (uc *AuthUseCase) Register(ctx context.Context, rawEmail, password string) 
 
 	return &AuthResponse{
 		User:   user,
+		Tokens: tokens,
+	}, nil
+}
+
+func (uc *AuthUseCase) QuickLoginOrRegister(ctx context.Context, rawEmail, nickname string) (*AuthResponse, error) {
+	email, err := domain.NewEmail(rawEmail)
+	if err != nil {
+		return nil, err
+	}
+
+	user, err := uc.userRepo.GetByEmail(ctx, email)
+	if err == nil && user != nil {
+		// Existing user: direct login
+		tokens, err := uc.generateTokenPair(ctx, user.ID())
+		if err != nil {
+			return nil, fmt.Errorf("generating tokens: %w", err)
+		}
+		return &AuthResponse{
+			User:   user,
+			Tokens: tokens,
+		}, nil
+	}
+	if err != nil && !errors.Is(err, domain.ErrUserNotFound) {
+		return nil, fmt.Errorf("checking user existence: %w", err)
+	}
+
+	// New quick user: generate secure random password
+	autoPass := "dopamine-quick-" + uuid.New().String()
+	passwordHash, err := uc.hasher.HashPassword(autoPass)
+	if err != nil {
+		return nil, fmt.Errorf("hashing password: %w", err)
+	}
+
+	newUser, err := domain.NewUser(uuid.New(), email, passwordHash, nickname, time.Now().UTC())
+	if err != nil {
+		return nil, err
+	}
+
+	if err := uc.userRepo.Create(ctx, newUser); err != nil {
+		return nil, err
+	}
+
+	tokens, err := uc.generateTokenPair(ctx, newUser.ID())
+	if err != nil {
+		return nil, fmt.Errorf("generating tokens: %w", err)
+	}
+
+	return &AuthResponse{
+		User:   newUser,
 		Tokens: tokens,
 	}, nil
 }

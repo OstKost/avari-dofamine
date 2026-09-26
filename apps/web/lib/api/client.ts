@@ -45,6 +45,32 @@ export function isUnauthorizedError(err: unknown): boolean {
   return false;
 }
 
+export function getOrCreateGuestId(): string {
+  if (typeof window === "undefined") return "";
+  try {
+    let guestId = localStorage.getItem("dopamine_guest_id");
+    if (!guestId) {
+      const match = document.cookie.match(/(?:^|;\s*)guest_id=([^;]*)/);
+      if (match && match[1]) {
+        guestId = decodeURIComponent(match[1]);
+      } else {
+        guestId = typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+              const r = (Math.random() * 16) | 0;
+              const v = c === "x" ? r : (r & 0x3) | 0x8;
+              return v.toString(16);
+            });
+      }
+      localStorage.setItem("dopamine_guest_id", guestId);
+      document.cookie = `guest_id=${guestId}; path=/; max-age=${30 * 24 * 3600}; SameSite=Lax`;
+    }
+    return guestId;
+  } catch {
+    return "";
+  }
+}
+
 export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   let url = `${API_BASE_URL}${endpoint}`;
 
@@ -67,8 +93,10 @@ export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}
     }
   }
 
+  const guestId = getOrCreateGuestId();
   const headers: HeadersInit = {
     "Content-Type": "application/json",
+    ...(guestId ? { "X-Guest-ID": guestId } : {}),
     ...options.headers,
   };
 

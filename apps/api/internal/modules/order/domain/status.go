@@ -30,24 +30,26 @@ func (s Status) IsTerminal() bool {
 //
 // ```mermaid
 // stateDiagram-v2
-//     [*] --> created
-//     created --> payment_pending
-//     created --> cancelled
-//     payment_pending --> paid
-//     payment_pending --> payment_failed
-//     payment_pending --> cancelled
-//     payment_failed --> payment_pending
-//     payment_failed --> cancelled
-//     paid --> assembling
-//     paid --> cancelled
-//     assembling --> courier_assigned
-//     assembling --> cancelled
-//     courier_assigned --> in_transit
-//     courier_assigned --> cancelled
-//     in_transit --> delivered
-//     in_transit --> cancelled
-//     delivered --> [*]
-//     cancelled --> [*]
+//
+//	[*] --> created
+//	created --> payment_pending
+//	created --> cancelled
+//	payment_pending --> paid
+//	payment_pending --> payment_failed
+//	payment_pending --> cancelled
+//	payment_failed --> payment_pending
+//	payment_failed --> cancelled
+//	paid --> assembling
+//	paid --> cancelled
+//	assembling --> courier_assigned
+//	assembling --> cancelled
+//	courier_assigned --> in_transit
+//	courier_assigned --> cancelled
+//	in_transit --> delivered
+//	in_transit --> cancelled
+//	delivered --> [*]
+//	cancelled --> [*]
+//
 // ```
 var allowedTransitions = map[Status][]Status{
 	StatusCreated: {

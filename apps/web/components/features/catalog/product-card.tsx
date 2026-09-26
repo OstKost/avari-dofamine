@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { apiFetch, isUnauthorizedError } from "@/lib/api/client";
 import { getProductImageUrl } from "@/lib/utils/product-image";
-import { formatPrice } from "@/lib/utils";
+import { useCurrency } from "@/lib/context/currency-context";
 
 export interface ProductCardProps {
   id: string;
@@ -27,6 +27,7 @@ export function ProductCard({
   priceRub,
   imageSeed,
 }: ProductCardProps) {
+  const { formatPrice } = useCurrency();
   const [isAdding, setIsAdding] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
 

@@ -19,8 +19,9 @@ func NewConsumerHandler(paymentUC *usecase.PaymentUseCase) *ConsumerHandler {
 }
 
 type OrderCreatedPayload struct {
-	OrderID uuid.UUID `json:"order_id"`
-	UserID  uuid.UUID `json:"user_id"`
+	OrderID        uuid.UUID `json:"order_id"`
+	UserID         uuid.UUID `json:"user_id"`
+	TotalAmountRUB string    `json:"total_amount_rub"`
 }
 
 func (h *ConsumerHandler) HandleMessage(ctx context.Context, msg kafka.Message) error {
@@ -34,7 +35,7 @@ func (h *ConsumerHandler) HandleMessage(ctx context.Context, msg kafka.Message) 
 		return fmt.Errorf("unmarshaling order.created event: %w", err)
 	}
 
-	_, err := h.paymentUC.InitiatePayment(ctx, payload.OrderID, payload.UserID, "http://localhost:3000/orders/"+payload.OrderID.String())
+	_, err := h.paymentUC.InitiatePayment(ctx, payload.OrderID, payload.UserID, payload.TotalAmountRUB, "http://localhost:3000/orders/"+payload.OrderID.String())
 	if err != nil {
 		return fmt.Errorf("handling order.created in payment module: %w", err)
 	}

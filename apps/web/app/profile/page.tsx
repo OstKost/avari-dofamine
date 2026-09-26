@@ -14,6 +14,7 @@ import { formatPrice } from "@/lib/utils";
 interface UserProfile {
   id: string;
   email: string;
+  nickname?: string;
   created_at: string;
 }
 
@@ -28,7 +29,7 @@ const INITIAL_ACHIEVEMENTS: Achievement[] = [
   {
     id: "first-order",
     title: "Первый шаг",
-    description: "Оформили ваш самый первый синтетический заказ за 10 ₽",
+    description: "Оформили ваш самый первый синтетический заказ",
     xp_reward: 50,
     is_unlocked: true,
     unlocked_at: "2026-09-15",
@@ -149,11 +150,13 @@ export default function ProfilePage() {
             Войдите или зарегистрируйтесь, чтобы просматривать профиль, награды и стрик.
           </p>
         </div>
-        <Link href="/login">
-          <Button variant="reward" className="rounded-2xl px-8">
-            Войти в аккаунт
-          </Button>
-        </Link>
+        <div className="pt-6">
+          <Link href="/login">
+            <Button variant="reward" className="rounded-2xl px-8 shadow-glow-amber">
+              Войти в аккаунт
+            </Button>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -189,10 +192,10 @@ export default function ProfilePage() {
 
             <div className="space-y-1">
               <h1 className="text-xl sm:text-2xl font-black text-[#F4F1E8] tracking-tight">
-                {user.email}
+                {user.nickname || user.email}
               </h1>
               <p className="text-xs text-[#9FB3C4]">
-                В Avari Dopamine с {new Date(user.created_at).toLocaleDateString("ru-RU")}
+                {user.nickname ? `${user.email} · ` : ""}В Avari Dopamine с {new Date(user.created_at).toLocaleDateString("ru-RU")}
               </p>
               <div className="flex items-center gap-2 pt-1">
                 <div className="h-2 w-32 rounded-full bg-[#0E1B29] border border-[#1E3A50] overflow-hidden">
@@ -386,7 +389,7 @@ export default function ProfilePage() {
             Просмотрите статус и архив ваших заказов
           </h3>
           <p className="text-xs text-[#9FB3C4] max-w-md">
-            Все заказы выполняются по специальной цене 10 ₽ с применением промокода Avari Dopamine.
+            Все заказы выполняются с бесплатным оформлением и симуляцией быстрой доставки.
           </p>
         </div>
 

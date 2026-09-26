@@ -141,6 +141,49 @@ paths:
         "429":
           $ref: "#/components/responses/TooManyRequests"
 
+  /auth/quick-login:
+    post:
+      tags: [identity]
+      summary: Быстрая аутентификация в 1 клик (Google, Apple, Yandex, Quick Email)
+      description: Создает или находит пользователя по email/провайдеру и сразу выдает сессионные куки и access_token.
+      operationId: quickLogin
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "user@gmail.com"
+                nickname:
+                  type: string
+                  example: "CyberDopamine"
+                provider:
+                  type: string
+                  enum: [google, yandex, apple, quick_email]
+                  example: "google"
+      responses:
+        "200":
+          description: Успешная быстрая авторизация
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "#/components/schemas/User"
+                  access_token:
+                    type: string
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+
   /auth/refresh:
     post:
       tags: [identity]

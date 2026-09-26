@@ -7,9 +7,6 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-// FixedPriceRUB — инвариант INV-01: фиксированная цена любого товара = 10.00 RUB.
-var FixedPriceRUB = decimal.NewFromInt(10)
-
 type Product struct {
 	id           uuid.UUID
 	categoryID   uuid.UUID
@@ -33,9 +30,6 @@ func NewProduct(
 ) *Product {
 	if id == uuid.Nil {
 		id = uuid.New()
-	}
-	if priceRUB.IsZero() {
-		priceRUB = FixedPriceRUB
 	}
 	if createdAt.IsZero() {
 		createdAt = time.Now().UTC()

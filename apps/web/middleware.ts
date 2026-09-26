@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { parseJwt } from "./lib/auth/auth";
 
-const PROTECTED_ROUTES = ["/cart", "/checkout", "/orders"];
+const PROTECTED_ROUTES = ["/orders"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;

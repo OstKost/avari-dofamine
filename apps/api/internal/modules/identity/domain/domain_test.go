@@ -44,7 +44,7 @@ func TestUser_Creation(t *testing.T) {
 	}
 
 	userID := uuid.New()
-	user, err := domain.NewUser(userID, email, "hashed_password", time.Now())
+	user, err := domain.NewUser(userID, email, "hashed_password", "CyberSamurai", time.Now())
 	if err != nil {
 		t.Fatalf("NewUser failed: %v", err)
 	}
@@ -54,5 +54,11 @@ func TestUser_Creation(t *testing.T) {
 	}
 	if user.Email().String() != "test@example.com" {
 		t.Errorf("user Email mismatch")
+	}
+	if user.Nickname() != "CyberSamurai" {
+		t.Errorf("user Nickname mismatch, got %q", user.Nickname())
+	}
+	if user.DisplayName() != "CyberSamurai" {
+		t.Errorf("user DisplayName mismatch, got %q", user.DisplayName())
 	}
 }

@@ -23,10 +23,10 @@ func NewUserRepository(pool *pgxpool.Pool) *UserRepository {
 
 func (r *UserRepository) Create(ctx context.Context, user *domain.User) error {
 	query := `
-		INSERT INTO identity.users (id, email, password_hash, created_at)
-		VALUES ($1, $2, $3, $4)
+		INSERT INTO identity.users (id, email, password_hash, nickname, created_at)
+		VALUES ($1, $2, $3, $4, $5)
 	`
-	_, err := r.pool.Exec(ctx, query, user.ID(), user.Email().String(), user.PasswordHash(), user.CreatedAt())
+	_, err := r.pool.Exec(ctx, query, user.ID(), user.Email().String(), user.PasswordHash(), user.Nickname(), user.CreatedAt())
 	if err != nil {
 		var pgErr *pgconn.PgError
 		if errors.As(err, &pgErr) && pgErr.Code == "23505" { // unique_violation
@@ -39,7 +39,7 @@ func (r *UserRepository) Create(ctx context.Context, user *domain.User) error {
 
 func (r *UserRepository) GetByEmail(ctx context.Context, email domain.Email) (*domain.User, error) {
 	query := `
-		SELECT id, email, password_hash, created_at
+		SELECT id, email, password_hash, COALESCE(nickname, ''), created_at
 		FROM identity.users
 		WHERE LOWER(email) = LOWER($1)
 	`
@@ -47,10 +47,11 @@ func (r *UserRepository) GetByEmail(ctx context.Context, email domain.Email) (*d
 		id           uuid.UUID
 		rawEmail     string
 		passwordHash string
+		nickname     string
 		createdAt    time.Time
 	)
 
-	err := r.pool.QueryRow(ctx, query, email.String()).Scan(&id, &rawEmail, &passwordHash, &createdAt)
+	err := r.pool.QueryRow(ctx, query, email.String()).Scan(&id, &rawEmail, &passwordHash, &nickname, &createdAt)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, domain.ErrUserNotFound
@@ -63,22 +64,23 @@ func (r *UserRepository) GetByEmail(ctx context.Context, email domain.Email) (*d
 		return nil, fmt.Errorf("parsing db email: %w", err)
 	}
 
-	return domain.NewUser(id, parsedEmail, passwordHash, createdAt)
+	return domain.NewUser(id, parsedEmail, passwordHash, nickname, createdAt)
 }
 
 func (r *UserRepository) GetByID(ctx context.Context, id uuid.UUID) (*domain.User, error) {
 	query := `
-		SELECT id, email, password_hash, created_at
+		SELECT id, email, password_hash, COALESCE(nickname, ''), created_at
 		FROM identity.users
 		WHERE id = $1
 	`
 	var (
 		rawEmail     string
 		passwordHash string
+		nickname     string
 		createdAt    time.Time
 	)
 
-	err := r.pool.QueryRow(ctx, query, id).Scan(&id, &rawEmail, &passwordHash, &createdAt)
+	err := r.pool.QueryRow(ctx, query, id).Scan(&id, &rawEmail, &passwordHash, &nickname, &createdAt)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return nil, domain.ErrUserNotFound
@@ -91,5 +93,6 @@ func (r *UserRepository) GetByID(ctx context.Context, id uuid.UUID) (*domain.Use
 		return nil, fmt.Errorf("parsing db email: %w", err)
 	}
 
-	return domain.NewUser(id, parsedEmail, passwordHash, createdAt)
+	return domain.NewUser(id, parsedEmail, passwordHash, nickname, createdAt)
 }
+

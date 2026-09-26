@@ -15,6 +15,7 @@ const (
 	StatusFailed    Status = "failed"
 )
 
+// FixedPaymentAmountRUB — инвариант INV-01: фиксированная сумма платежа = 10.00 RUB.
 const FixedPaymentAmountRUB = "10.00"
 
 type Payment struct {
@@ -35,6 +36,7 @@ func NewPayment(
 	orderID uuid.UUID,
 	provider string,
 	providerPaymentID string,
+	amountRUB string,
 	confirmationURL string,
 ) (*Payment, error) {
 	if id == uuid.Nil {
@@ -56,7 +58,7 @@ func NewPayment(
 		orderID:           orderID,
 		provider:          provider,
 		providerPaymentID: providerPaymentID,
-		amountRUB:         FixedPaymentAmountRUB, // INV-01
+		amountRUB:         amountRUB,
 		status:            StatusPending,
 		confirmationURL:   confirmationURL,
 		createdAt:         now,
@@ -115,13 +117,13 @@ func (p *Payment) MarkFailed(reason string) error {
 	return nil
 }
 
-func (p *Payment) ID() uuid.UUID                { return p.id }
-func (p *Payment) OrderID() uuid.UUID           { return p.orderID }
-func (p *Payment) Provider() string             { return p.provider }
-func (p *Payment) ProviderPaymentID() string     { return p.providerPaymentID }
-func (p *Payment) AmountRUB() string            { return p.amountRUB }
-func (p *Payment) Status() Status               { return p.status }
-func (p *Payment) ConfirmationURL() string       { return p.confirmationURL }
-func (p *Payment) FailureReason() string        { return p.failureReason }
-func (p *Payment) CreatedAt() time.Time         { return p.createdAt }
-func (p *Payment) UpdatedAt() time.Time         { return p.updatedAt }
+func (p *Payment) ID() uuid.UUID             { return p.id }
+func (p *Payment) OrderID() uuid.UUID        { return p.orderID }
+func (p *Payment) Provider() string          { return p.provider }
+func (p *Payment) ProviderPaymentID() string { return p.providerPaymentID }
+func (p *Payment) AmountRUB() string         { return p.amountRUB }
+func (p *Payment) Status() Status            { return p.status }
+func (p *Payment) ConfirmationURL() string   { return p.confirmationURL }
+func (p *Payment) FailureReason() string     { return p.failureReason }
+func (p *Payment) CreatedAt() time.Time      { return p.createdAt }
+func (p *Payment) UpdatedAt() time.Time      { return p.updatedAt }

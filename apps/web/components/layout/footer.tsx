@@ -28,7 +28,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-[#9FB3C4] max-w-sm leading-relaxed">
-              Маркетплейс мгновенной радости и предвкушения. Любой заказ всего за 10 рублей по промокоду DOPAMINE.
+              Маркетплейс мгновенной радости и предвкушения. Бесплатное оформление заказов, интерактивная симуляция курьеров и яркие эмоции.
             </p>
           </div>
 
@@ -77,19 +77,19 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <a
-                  href="https://boosty.to/ostkost"
+                  href="https://boosty.to/avari"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#F2B84B]/15 via-[#FFD37A]/10 to-transparent border border-amber-400/40 text-amber-300 font-bold hover:brightness-125 hover:border-amber-400 transition-all shadow-glow-amber group"
                 >
                   <Sparkles className="h-4 w-4 text-amber-400 animate-pulse" />
-                  <span>Boosty: ostkost</span>
+                  <span>💛 Поддержать проект</span>
                   <ExternalLink className="h-3.5 w-3.5 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
               </li>
               <li className="flex items-center gap-2 text-xs text-[#5E7488]">
                 <ShieldCheck className="h-4 w-4 text-teal-400" />
-                <span>Фикс-прайс: 10 ₽ по промокоду</span>
+                <span>Бесплатное оформление заказов</span>
               </li>
               <li className="flex items-center gap-2 text-xs text-[#5E7488]">
                 <Zap className="h-4 w-4 text-amber-400" />
@@ -102,9 +102,9 @@ export function Footer() {
         <div className="mt-10 border-t border-[#1E3A50]/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#5E7488]">
           <p>© {new Date().getFullYear()} Avari Dopamine. Все товары, курьеры и ПВЗ синтетические.</p>
           <div className="flex items-center gap-4">
-            <a href="https://boosty.to/ostkost" target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors flex items-center gap-1">
-              <span>Поддержать автора (ostkost)</span>
-              <Heart className="h-3 w-3 text-amber-400 fill-amber-400" />
+            <a href="https://boosty.to/avari" target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors flex items-center gap-1 font-semibold text-amber-400/90">
+              <span>💛 Поддержать разработчика на Boosty</span>
+              <Heart className="h-3.5 w-3.5 text-amber-400 fill-amber-400" />
             </a>
           </div>
         </div>

@@ -61,18 +61,18 @@ type yooCreatePaymentRequest struct {
 }
 
 type yooPaymentResponse struct {
-	ID           string           `json:"id"`
-	Status       string           `json:"status"`
-	Paid         bool             `json:"paid"`
-	Amount       yooAmount        `json:"amount"`
-	Confirmation *yooConfirmation `json:"confirmation,omitempty"`
+	ID           string            `json:"id"`
+	Status       string            `json:"status"`
+	Paid         bool              `json:"paid"`
+	Amount       yooAmount         `json:"amount"`
+	Confirmation *yooConfirmation  `json:"confirmation,omitempty"`
 	Metadata     map[string]string `json:"metadata,omitempty"`
 }
 
 func (p *Provider) InitiatePayment(ctx context.Context, req contracts.InitiatePaymentRequest) (contracts.InitiatePaymentResult, error) {
 	createReq := yooCreatePaymentRequest{
 		Amount: yooAmount{
-			Value:    "10.00", // INV-01
+			Value:    req.AmountRUB,
 			Currency: "RUB",
 		},
 		Capture: true,

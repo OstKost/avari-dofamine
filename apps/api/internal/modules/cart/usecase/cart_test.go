@@ -97,14 +97,14 @@ func TestCartUseCase_FullFlow(t *testing.T) {
 			prodID1: {
 				ID:           prodID1,
 				Name:         "Товар 1",
-				PriceRUB:     decimal.NewFromInt(10),
+				PriceRUB:     decimal.NewFromFloat(15.50),
 				CategoryName: "Категория 1",
 				ImageSeed:    "seed-1",
 			},
 			prodID2: {
 				ID:           prodID2,
 				Name:         "Товар 2",
-				PriceRUB:     decimal.NewFromInt(10),
+				PriceRUB:     decimal.NewFromFloat(25.00),
 				CategoryName: "Категория 1",
 				ImageSeed:    "seed-2",
 			},
@@ -140,6 +140,9 @@ func TestCartUseCase_FullFlow(t *testing.T) {
 	if cart.TotalQuantity != 2 || len(cart.Items) != 1 {
 		t.Errorf("expected 2 items, got %d", cart.TotalQuantity)
 	}
+	if !cart.TotalPriceRUB.Equal(decimal.NewFromFloat(31.00)) {
+		t.Errorf("expected TotalPriceRUB 31.00, got %v", cart.TotalPriceRUB)
+	}
 
 	// 3. Set pickup point
 	cart, err = uc.SetPickupPoint(ctx, userID, pickupID)
@@ -157,6 +160,9 @@ func TestCartUseCase_FullFlow(t *testing.T) {
 	}
 	if cart.TotalQuantity != 5 {
 		t.Errorf("expected total quantity 5, got %d", cart.TotalQuantity)
+	}
+	if !cart.TotalPriceRUB.Equal(decimal.NewFromFloat(77.50)) {
+		t.Errorf("expected TotalPriceRUB 77.50, got %v", cart.TotalPriceRUB)
 	}
 
 	// 5. Remove item

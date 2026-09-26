@@ -24,7 +24,7 @@ type OrderSnapshot struct {
 	ID             uuid.UUID           `json:"id"`
 	UserID         uuid.UUID           `json:"user_id"`
 	Status         string              `json:"status"`
-	TotalAmountRUB decimal.Decimal     `json:"total_amount_rub"` // Всегда 10.00 RUB (INV-01)
+	TotalAmountRUB decimal.Decimal     `json:"total_amount_rub"`
 	PickupPoint    PickupPointSnapshot `json:"pickup_point"`
 	Items          []OrderItemSnapshot `json:"items"`
 	CreatedAt      time.Time           `json:"created_at"`

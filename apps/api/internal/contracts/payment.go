@@ -22,7 +22,7 @@ type PaymentSnapshot struct {
 	OrderID           uuid.UUID     `json:"order_id"`
 	Provider          string        `json:"provider"`
 	ProviderPaymentID string        `json:"provider_payment_id"`
-	AmountRUB         string        `json:"amount_rub"` // Всегда "10.00" согласно INV-01
+	AmountRUB         string        `json:"amount_rub"`
 	Status            PaymentStatus `json:"status"`
 	CreatedAt         time.Time     `json:"created_at"`
 	UpdatedAt         time.Time     `json:"updated_at"`
@@ -32,7 +32,7 @@ type PaymentSnapshot struct {
 type InitiatePaymentRequest struct {
 	OrderID     uuid.UUID `json:"order_id"`
 	UserID      uuid.UUID `json:"user_id"`
-	AmountRUB   string    `json:"amount_rub"` // Всегда "10.00"
+	AmountRUB   string    `json:"amount_rub"`
 	Description string    `json:"description"`
 	ReturnURL   string    `json:"return_url"`
 }

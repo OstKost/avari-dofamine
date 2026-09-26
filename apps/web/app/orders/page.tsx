@@ -65,7 +65,7 @@ export default async function OrdersPage() {
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-400/15 border border-amber-400/30 text-amber-400">
-              Фикс-цена: 10 ₽
+              Бесплатные заказы
             </span>
           </div>
           <h1 className="text-3xl font-black text-[#F4F1E8] tracking-tight">
@@ -89,7 +89,7 @@ export default async function OrdersPage() {
               У вас пока нет заказов
             </h3>
             <p className="text-sm text-[#9FB3C4] max-w-sm">
-              Оформите свой первый заказ в каталоге всего за 10 рублей с применением промокода.
+              Оформите свой первый заказ в каталоге бесплатно и наблюдайте за доставкой курьером.
             </p>
           </div>
           <Link href="/catalog">

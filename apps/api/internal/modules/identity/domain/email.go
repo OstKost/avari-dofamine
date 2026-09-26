@@ -37,3 +37,13 @@ func (e Email) String() string {
 func (e Email) IsZero() bool {
 	return e.value == ""
 }
+
+// LocalPart возвращает часть email до символа @.
+func (e Email) LocalPart() string {
+	parts := strings.Split(e.value, "@")
+	if len(parts) > 0 {
+		return parts[0]
+	}
+	return e.value
+}
+

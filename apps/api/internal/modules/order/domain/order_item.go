@@ -28,9 +28,6 @@ func NewOrderItem(
 	if id == uuid.Nil {
 		id = uuid.New()
 	}
-	if priceRUB.IsZero() {
-		priceRUB = decimal.NewFromInt(10)
-	}
 	subtotal := priceRUB.Mul(decimal.NewFromInt(int64(quantity)))
 
 	return OrderItem{

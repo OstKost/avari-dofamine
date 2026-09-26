@@ -26,11 +26,10 @@ type EnrichedCartItem struct {
 }
 
 type EnrichedCart struct {
-	Items          []EnrichedCartItem             `json:"items"`
-	PickupPoint    *contracts.PickupPointSnapshot `json:"pickup_point,omitempty"`
-	TotalQuantity  int                            `json:"total_quantity"`
-	TotalPriceRUB  decimal.Decimal                `json:"total_price_rub"`
-	FixedOrderCost decimal.Decimal                `json:"fixed_order_cost"` // INV-01: 10.00 RUB
+	Items         []EnrichedCartItem             `json:"items"`
+	PickupPoint   *contracts.PickupPointSnapshot `json:"pickup_point,omitempty"`
+	TotalQuantity int                            `json:"total_quantity"`
+	TotalPriceRUB decimal.Decimal                `json:"total_price_rub"`
 }
 
 type CartUseCase struct {
@@ -166,6 +165,47 @@ func (uc *CartUseCase) ClearCart(ctx context.Context, userID uuid.UUID) error {
 	return uc.store.ClearCart(ctx, userID)
 }
 
+func (uc *CartUseCase) MergeCart(ctx context.Context, guestID, userID uuid.UUID) (*EnrichedCart, error) {
+	if guestID == uuid.Nil || userID == uuid.Nil || guestID == userID {
+		return uc.GetCart(ctx, userID)
+	}
+
+	guestCart, err := uc.store.GetCart(ctx, guestID)
+	if err != nil {
+		return nil, fmt.Errorf("getting guest cart: %w", err)
+	}
+
+	if guestCart.IsEmpty() && guestCart.PickupPointID() == nil {
+		return uc.GetCart(ctx, userID)
+	}
+
+	userCart, err := uc.store.GetCart(ctx, userID)
+	if err != nil {
+		return nil, fmt.Errorf("getting user cart: %w", err)
+	}
+
+	mergedCart := userCart
+	for pID, qty := range guestCart.Items() {
+		var mergeErr error
+		mergedCart, mergeErr = mergedCart.WithItem(pID, qty)
+		if mergeErr != nil {
+			return nil, mergeErr
+		}
+	}
+
+	if userCart.PickupPointID() == nil && guestCart.PickupPointID() != nil {
+		mergedCart = mergedCart.WithPickupPoint(guestCart.PickupPointID())
+	}
+
+	if err := uc.store.SaveCart(ctx, userID, mergedCart, uc.ttl); err != nil {
+		return nil, fmt.Errorf("saving merged cart: %w", err)
+	}
+
+	_ = uc.store.ClearCart(ctx, guestID)
+
+	return uc.enrichCart(ctx, mergedCart)
+}
+
 func (uc *CartUseCase) enrichCart(ctx context.Context, cart domain.Cart) (*EnrichedCart, error) {
 	items := cart.Items()
 	var productIDs []uuid.UUID
@@ -214,10 +254,9 @@ func (uc *CartUseCase) enrichCart(ctx context.Context, cart domain.Cart) (*Enric
 	}
 
 	return &EnrichedCart{
-		Items:          enrichedItems,
-		PickupPoint:    pickupSnapshot,
-		TotalQuantity:  totalQty,
-		TotalPriceRUB:  totalPrice,
-		FixedOrderCost: decimal.NewFromInt(10), // INV-01
+		Items:         enrichedItems,
+		PickupPoint:   pickupSnapshot,
+		TotalQuantity: totalQty,
+		TotalPriceRUB: totalPrice,
 	}, nil
 }

@@ -165,8 +165,12 @@ func run() error {
 	// Prometheus метрики (EPIC-12)
 	srv.Router().Handle("/metrics", metrics.Handler())
 
-	// Rate limiter для Auth (NFR-SEC-02: 5 запросов/мин на IP)
-	authLimiter := ratelimit.New(redisClient.Raw(), 5, time.Minute)
+	// Rate limiter для Auth (NFR-SEC-02: 30 запросов/мин в проде, 120 в local/dev)
+	rateLimitCount := 30
+	if cfg.Env != "production" {
+		rateLimitCount = 120
+	}
+	authLimiter := ratelimit.New(redisClient.Raw(), rateLimitCount, time.Minute)
 
 	// Монтирование роутов модулей
 	srv.Router().Group(func(r chi.Router) {
@@ -183,15 +187,15 @@ func run() error {
 	// Каталог — публичный доступ
 	srv.Router().Mount("/catalog", catalogModule.Routes())
 
-	// ПВЗ — требует авторизации
+	// ПВЗ — доступно анонимным и авторизованным пользователям (OptionalAuth)
 	srv.Router().Group(func(r chi.Router) {
-		r.Use(httpserver.RequireAuth(cfg.Auth.JWTSecret))
+		r.Use(httpserver.OptionalAuth(cfg.Auth.JWTSecret))
 		r.Mount("/pickup", pickupModule.Routes())
 	})
 
-	// Корзина — требует авторизации
+	// Корзина — доступна анонимным и авторизованным пользователям (OptionalAuth)
 	srv.Router().Group(func(r chi.Router) {
-		r.Use(httpserver.RequireAuth(cfg.Auth.JWTSecret))
+		r.Use(httpserver.OptionalAuth(cfg.Auth.JWTSecret))
 		r.Mount("/cart", cartModule.Routes())
 	})
 

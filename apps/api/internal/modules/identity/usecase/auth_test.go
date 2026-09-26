@@ -109,25 +109,28 @@ func TestAuthUseCase_RegisterAndLogin(t *testing.T) {
 	ctx := context.Background()
 
 	// 1. Weak password
-	_, err := uc.Register(ctx, "test@example.com", "short")
+	_, err := uc.Register(ctx, "test@example.com", "short", "tester")
 	if !errors.Is(err, domain.ErrWeakPassword) {
 		t.Fatalf("expected ErrWeakPassword, got %v", err)
 	}
 
 	// 2. Successful register
-	resp, err := uc.Register(ctx, "Test@Example.Com", "password123")
+	resp, err := uc.Register(ctx, "Test@Example.Com", "password123", "CoolUser")
 	if err != nil {
 		t.Fatalf("register failed: %v", err)
 	}
 	if resp.User.Email().String() != "test@example.com" {
 		t.Errorf("email not normalized, got %q", resp.User.Email().String())
 	}
+	if resp.User.Nickname() != "CoolUser" {
+		t.Errorf("nickname mismatch, got %q", resp.User.Nickname())
+	}
 	if resp.Tokens.AccessToken == "" || resp.Tokens.RefreshToken == "" {
 		t.Errorf("expected tokens to be non-empty")
 	}
 
 	// 3. Duplicate email
-	_, err = uc.Register(ctx, "test@example.com", "password123")
+	_, err = uc.Register(ctx, "test@example.com", "password123", "CoolUser")
 	if !errors.Is(err, domain.ErrEmailAlreadyExists) {
 		t.Fatalf("expected ErrEmailAlreadyExists, got %v", err)
 	}
@@ -148,6 +151,37 @@ func TestAuthUseCase_RegisterAndLogin(t *testing.T) {
 	}
 }
 
+func TestAuthUseCase_QuickLoginOrRegister(t *testing.T) {
+	repo := newMockUserRepo()
+	store := newMockTokenStore()
+	hasher := &mockHasher{}
+	secret := "test-secret-at-least-32-bytes-long!!"
+
+	uc := usecase.NewAuthUseCase(repo, store, hasher, secret, 15*time.Minute, 30*24*time.Hour)
+	ctx := context.Background()
+
+	// 1. Quick register new user
+	resp, err := uc.QuickLoginOrRegister(ctx, "quick@gmail.com", "GoogleUser")
+	if err != nil {
+		t.Fatalf("quick register failed: %v", err)
+	}
+	if resp.User.Email().String() != "quick@gmail.com" {
+		t.Errorf("unexpected email: %s", resp.User.Email().String())
+	}
+	if resp.User.DisplayName() != "GoogleUser" {
+		t.Errorf("unexpected display name: %s", resp.User.DisplayName())
+	}
+
+	// 2. Quick login existing user
+	loginResp, err := uc.QuickLoginOrRegister(ctx, "quick@gmail.com", "GoogleUser2")
+	if err != nil {
+		t.Fatalf("quick login failed: %v", err)
+	}
+	if loginResp.User.ID() != resp.User.ID() {
+		t.Errorf("expected same user ID for existing email")
+	}
+}
+
 func TestAuthUseCase_RefreshRotationAndReuseDetection(t *testing.T) {
 	repo := newMockUserRepo()
 	store := newMockTokenStore()
@@ -157,7 +191,7 @@ func TestAuthUseCase_RefreshRotationAndReuseDetection(t *testing.T) {
 	uc := usecase.NewAuthUseCase(repo, store, hasher, secret, 15*time.Minute, 30*24*time.Hour)
 	ctx := context.Background()
 
-	resp, err := uc.Register(ctx, "user@example.com", "securepassword")
+	resp, err := uc.Register(ctx, "user@example.com", "securepassword", "user")
 	if err != nil {
 		t.Fatalf("register failed: %v", err)
 	}

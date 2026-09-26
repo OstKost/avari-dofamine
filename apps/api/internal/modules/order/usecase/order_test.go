@@ -179,6 +179,54 @@ func TestOrderUseCase_CreateOrder_DuplicatePendingFails(t *testing.T) {
 	}
 }
 
+func TestOrderUseCase_CreateOrder_Success(t *testing.T) {
+	repo := newMockOrderRepo()
+	pointID := uuid.New()
+	prodID1 := uuid.New()
+	prodID2 := uuid.New()
+	userID := uuid.New()
+
+	cartLookup := &mockCartLookup{
+		cart: contracts.CartSnapshot{
+			UserID:        userID,
+			PickupPointID: &pointID,
+			Items: []contracts.CartItemSnapshot{
+				{ProductID: prodID1, Quantity: 2},
+				{ProductID: prodID2, Quantity: 3},
+			},
+		},
+	}
+	productLookup := &mockProductLookup{
+		products: map[uuid.UUID]contracts.ProductSnapshot{
+			prodID1: {ID: prodID1, Name: "Товар 1", PriceRUB: decimal.NewFromFloat(50.00), CategoryName: "Кат 1"},
+			prodID2: {ID: prodID2, Name: "Товар 2", PriceRUB: decimal.NewFromFloat(20.00), CategoryName: "Кат 2"},
+		},
+	}
+	pickupLookup := &mockPickupLookup{
+		point: contracts.PickupPointSnapshot{ID: pointID, Name: "ПВЗ Главный"},
+	}
+
+	uc := usecase.NewOrderUseCase(repo, cartLookup, productLookup, pickupLookup, nil)
+	ctx := context.Background()
+
+	order, err := uc.CreateOrder(ctx, userID)
+	if err != nil {
+		t.Fatalf("CreateOrder failed: %v", err)
+	}
+
+	// 2*50 + 3*20 = 100 + 60 = 160.00 RUB
+	expectedTotal := decimal.NewFromFloat(160.00)
+	if !order.TotalAmountRUB().Equal(expectedTotal) {
+		t.Errorf("expected total %v, got %v", expectedTotal, order.TotalAmountRUB())
+	}
+	if order.Status() != domain.StatusPaymentPending {
+		t.Errorf("expected status payment_pending, got %v", order.Status())
+	}
+	if !cartLookup.cleared {
+		t.Errorf("expected cart to be cleared")
+	}
+}
+
 func TestOrderUseCase_TransitionOrder(t *testing.T) {
 	repo := newMockOrderRepo()
 	uc := usecase.NewOrderUseCase(repo, nil, nil, nil, nil)

@@ -106,12 +106,12 @@ func (h *Handler) handleGetPayment(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(map[string]interface{}{
 		"id":                  payment.ID(),
-		"order_id":           payment.OrderID(),
-		"provider":           payment.Provider(),
+		"order_id":            payment.OrderID(),
+		"provider":            payment.Provider(),
 		"provider_payment_id": payment.ProviderPaymentID(),
-		"amount_rub":         payment.AmountRUB(),
+		"amount_rub":          payment.AmountRUB(),
 		"status":              payment.Status(),
-		"confirmation_url":   payment.ConfirmationURL(),
+		"confirmation_url":    payment.ConfirmationURL(),
 		"created_at":          payment.CreatedAt(),
 		"updated_at":          payment.UpdatedAt(),
 	})

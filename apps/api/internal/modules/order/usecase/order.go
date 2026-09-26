@@ -109,7 +109,7 @@ func (uc *OrderUseCase) CreateOrder(ctx context.Context, userID uuid.UUID) (*dom
 		))
 	}
 
-	// 5. Создаём агрегат Order (с фиксированной суммой 10.00 RUB по INV-01)
+	// 5. Создаём агрегат Order с суммой товаров
 	orderID := uuid.New()
 	order, err := domain.NewOrder(orderID, userID, pickupInfo, orderItems, time.Now().UTC())
 	if err != nil {

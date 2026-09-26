@@ -54,7 +54,7 @@ func (p *Provider) InitiatePayment(ctx context.Context, req contracts.InitiatePa
 			time.Sleep(1 * time.Second)
 			payload := map[string]interface{}{
 				"provider_payment_id": providerPaymentID,
-				"order_id":           req.OrderID.String(),
+				"order_id":            req.OrderID.String(),
 				"status":              string(status),
 				"failure_reason":      failureReason,
 			}

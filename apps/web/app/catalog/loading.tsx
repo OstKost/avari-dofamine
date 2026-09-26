@@ -4,7 +4,7 @@ export default function CatalogLoading() {
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-8">
       {/* Category Pills Skeleton */}
-      <div className="flex gap-2 overflow-x-auto pb-4 mb-8">
+      <div className="flex gap-2 custom-scrollbar-x pb-4 mb-8">
         {Array.from({ length: 6 }).map((_, i) => (
           <Skeleton key={i} className="h-10 w-28 rounded-full flex-shrink-0" />
         ))}

@@ -15,7 +15,7 @@ type contextKey string
 
 const (
 	TraceparentHeader            = "traceparent"
-	TraceIDContextKey  contextKey = "trace_id"
+	TraceIDContextKey contextKey = "trace_id"
 )
 
 var (

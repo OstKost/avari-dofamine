@@ -7,9 +7,6 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-// FixedOrderAmountRUB — инвариант INV-01: сумма любого заказа = 10.00 RUB всегда.
-var FixedOrderAmountRUB = decimal.NewFromInt(10)
-
 type PickupPointInfo struct {
 	ID             uuid.UUID
 	Name           string
@@ -50,11 +47,16 @@ func NewOrder(
 		createdAt = time.Now().UTC()
 	}
 
+	totalAmount := decimal.Zero
+	for _, it := range items {
+		totalAmount = totalAmount.Add(it.SubtotalRUB())
+	}
+
 	return &Order{
 		id:             id,
 		userID:         userID,
 		status:         StatusCreated,
-		totalAmountRUB: FixedOrderAmountRUB, // INV-01
+		totalAmountRUB: totalAmount,
 		pickupPoint:    pickupPoint,
 		items:          items,
 		createdAt:      createdAt,

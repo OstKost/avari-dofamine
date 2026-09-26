@@ -65,3 +65,119 @@
   box-shadow: 0 0 20px rgba(84, 172, 191, 0.25);
 }
 
+/* Dopamine Market custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(11, 22, 34, 0.6);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(84, 172, 191, 0.35);
+  border-radius: 9999px;
+  border: 1px solid rgba(30, 58, 80, 0.6);
+  transition: all 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 184, 75, 0.75);
+  border-color: rgba(242, 184, 75, 0.9);
+  box-shadow: 0 0 10px rgba(242, 184, 75, 0.4);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(84, 172, 191, 0.35) rgba(11, 22, 34, 0.6);
+}
+
+/* Styled horizontal scroll containers */
+.custom-scrollbar-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.custom-scrollbar-x::-webkit-scrollbar {
+  height: 5px;
+}
+
+.custom-scrollbar-x::-webkit-scrollbar-track {
+  background: rgba(14, 27, 41, 0.5);
+  border-radius: 9999px;
+  margin: 0 4px;
+}
+
+.custom-scrollbar-x::-webkit-scrollbar-thumb {
+  background: rgba(84, 172, 191, 0.4);
+  border-radius: 9999px;
+  border: 1px solid rgba(30, 58, 80, 0.5);
+}
+
+.custom-scrollbar-x::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 184, 75, 0.85);
+  border-color: rgba(242, 184, 75, 1);
+  box-shadow: 0 0 10px rgba(242, 184, 75, 0.5);
+}
+
+/* Floating Parallax Keyframes */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(2deg);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(14px) rotate(-2deg);
+  }
+}
+
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 6.5s ease-in-out infinite;
+}
+
+.animate-float-gentle {
+  animation: float-gentle 5.5s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+
+
+

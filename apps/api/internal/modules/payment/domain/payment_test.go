@@ -9,13 +9,13 @@ import (
 
 func TestPayment_Invariants(t *testing.T) {
 	orderID := uuid.New()
-	p, err := domain.NewPayment(uuid.New(), orderID, "mock", "mock-pay-123", "http://confirm")
+	p, err := domain.NewPayment(uuid.New(), orderID, "mock", "mock-pay-123", "250.00", "http://confirm")
 	if err != nil {
 		t.Fatalf("unexpected error creating payment: %v", err)
 	}
 
-	if p.AmountRUB() != domain.FixedPaymentAmountRUB {
-		t.Errorf("expected amount %s (INV-01), got %s", domain.FixedPaymentAmountRUB, p.AmountRUB())
+	if p.AmountRUB() != "250.00" {
+		t.Errorf("expected amount 250.00, got %s", p.AmountRUB())
 	}
 
 	if p.Status() != domain.StatusPending {
