@@ -4,9 +4,8 @@ WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@12.4.2 --activate
 
-COPY package.json pnpm-lock.yaml* ./
-RUN pnpm config set onlyBuiltDependencies "sharp,unrs-resolver" && \
-    (pnpm install --no-frozen-lockfile --dangerously-allow-all-builds || pnpm install --no-frozen-lockfile || pnpm install)
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* .npmrc* ./
+RUN pnpm install --no-frozen-lockfile
 
 # Stage 2: Builder
 FROM node:22-alpine AS builder
