@@ -185,13 +185,13 @@ jobs:
           $SSH_CMD "cd ${DEPLOY_PATH} && docker compose -f deploy/docker-compose.prod.yml run --rm migrator /app/seed catalog || true"
 
           echo "==> Checking API health status..."
-          $SSH_CMD "curl -sf http://127.0.0.1:8080/healthz && echo '✅ API is healthy!'"
+          $SSH_CMD "curl -sf http://127.0.0.1:8088/healthz && echo '✅ API is healthy!'"
 
           echo "==> Checking Frontend health status..."
           $SSH_CMD "curl -sf http://127.0.0.1:8085/ > /dev/null && echo '✅ Frontend is responding on port 8085!'"
 
-          echo "==> Reloading OpenResty / Nginx if present..."
-          $SSH_CMD "(systemctl reload openresty 2>/dev/null || systemctl reload nginx 2>/dev/null || true)"
+          echo "==> Reloading OpenResty if present..."
+          $SSH_CMD "(openresty -p /opt/om/nginx/ -s reload 2>/dev/null || systemctl reload openresty 2>/dev/null || systemctl reload nginx 2>/dev/null || true)"
 
           echo "🎉 Dofamine successfully deployed to https://dofamine.avari.dev !"
 
