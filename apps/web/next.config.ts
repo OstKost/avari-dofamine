@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
     ],
   },
   async rewrites() {
-    const backendUrl = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8080";
+    const backendUrl = process.env.INTERNAL_API_URL || (process.env.NODE_ENV === "production" ? "http://api:8080" : "http://localhost:8080");
     return [
       {
         source: "/api/healthz",
@@ -32,6 +32,30 @@ const nextConfig: NextConfig = {
       {
         source: "/api/metrics",
         destination: `${backendUrl}/metrics`,
+      },
+      {
+        source: "/api/catalog/:path*",
+        destination: `${backendUrl}/catalog/:path*`,
+      },
+      {
+        source: "/api/auth/:path*",
+        destination: `${backendUrl}/auth/:path*`,
+      },
+      {
+        source: "/api/pickup/:path*",
+        destination: `${backendUrl}/pickup/:path*`,
+      },
+      {
+        source: "/api/cart/:path*",
+        destination: `${backendUrl}/cart/:path*`,
+      },
+      {
+        source: "/api/orders/:path*",
+        destination: `${backendUrl}/orders/:path*`,
+      },
+      {
+        source: "/api/payments/:path*",
+        destination: `${backendUrl}/payments/:path*`,
       },
       {
         source: "/api/:path*",
