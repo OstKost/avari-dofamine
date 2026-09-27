@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/delivery/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/delivery/domain"
 )
 
 type DeliveryRepository interface {

@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/ostkost/dofamine/api/internal/modules/pickup/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/pickup/domain"
 )
 
 func TestGeo_DestinationPointAndDistance(t *testing.T) {

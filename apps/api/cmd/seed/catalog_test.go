@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/catalog/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/catalog/domain"
 )
 
 type memoryCatalogRepo struct {

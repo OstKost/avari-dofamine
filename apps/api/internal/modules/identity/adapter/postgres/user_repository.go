@@ -10,7 +10,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/ostkost/dofamine/api/internal/modules/identity/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/identity/domain"
 )
 
 type UserRepository struct {

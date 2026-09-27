@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/contracts"
-	"github.com/ostkost/dofamine/api/internal/modules/cart/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/cart/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/contracts"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/cart/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/cart/usecase"
 	"github.com/shopspring/decimal"
 )
 

@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/catalog/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/catalog/port"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/catalog/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/catalog/port"
 )
 
 type CatalogUseCase struct {

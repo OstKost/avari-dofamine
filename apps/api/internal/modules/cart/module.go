@@ -7,10 +7,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/contracts"
-	"github.com/ostkost/dofamine/api/internal/modules/cart/adapter/httpapi"
-	"github.com/ostkost/dofamine/api/internal/modules/cart/adapter/redis"
-	"github.com/ostkost/dofamine/api/internal/modules/cart/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/contracts"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/cart/adapter/httpapi"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/cart/adapter/redis"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/cart/usecase"
 	redisClient "github.com/redis/go-redis/v9"
 )
 

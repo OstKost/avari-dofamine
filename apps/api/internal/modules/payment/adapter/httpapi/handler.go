@@ -8,8 +8,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/payment/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/payment/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/payment/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/payment/usecase"
 )
 
 type Handler struct {

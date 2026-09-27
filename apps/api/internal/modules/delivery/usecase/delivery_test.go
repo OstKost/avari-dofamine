@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/delivery/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/delivery/usecase"
-	"github.com/ostkost/dofamine/api/internal/platform/random"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/delivery/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/delivery/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/random"
 )
 
 type inMemoryDeliveryRepo struct {

@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/notification/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/notification/usecase"
-	"github.com/ostkost/dofamine/api/internal/platform/kafka"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/notification/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/notification/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/kafka"
 )
 
 type ConsumerHandler struct {

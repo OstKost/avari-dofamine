@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/pickup/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/pickup/port"
-	"github.com/ostkost/dofamine/api/internal/platform/random"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/pickup/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/pickup/port"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/random"
 )
 
 // Rostov-on-Don fallback coordinates (FR-PICKUP-01).

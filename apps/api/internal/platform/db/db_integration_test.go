@@ -17,7 +17,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/db"
 )
 
 func TestNew_ConnectsAndHealthChecks(t *testing.T) {

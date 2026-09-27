@@ -8,8 +8,8 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/identity/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/identity/port"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/identity/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/identity/port"
 )
 
 type TokenPair struct {

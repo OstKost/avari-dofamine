@@ -7,10 +7,10 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/contracts"
-	"github.com/ostkost/dofamine/api/internal/modules/notification/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/notification/usecase"
-	"github.com/ostkost/dofamine/api/internal/platform/pubsub"
+	"github.com/ostkost/avari-dofamine/api/internal/contracts"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/notification/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/notification/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/pubsub"
 	"github.com/shopspring/decimal"
 )
 

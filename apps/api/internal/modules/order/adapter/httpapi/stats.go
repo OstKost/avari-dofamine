@@ -3,7 +3,7 @@ package httpapi
 import (
 	"net/http"
 
-	"github.com/ostkost/dofamine/api/internal/platform/httpserver"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/httpserver"
 )
 
 // handleGetUserStats возвращает статистику заказов и streak текущего пользователя (EPIC-14, FR-GAMIFY-01).

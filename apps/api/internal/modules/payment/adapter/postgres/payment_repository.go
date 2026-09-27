@@ -9,8 +9,8 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
-	"github.com/ostkost/dofamine/api/internal/modules/payment/domain"
-	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/payment/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/db"
 )
 
 type PaymentRepository struct {

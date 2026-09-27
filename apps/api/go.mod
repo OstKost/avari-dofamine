@@ -1,4 +1,4 @@
-module github.com/ostkost/dofamine/api
+module github.com/ostkost/avari-dofamine/api
 
 go 1.23.4
 

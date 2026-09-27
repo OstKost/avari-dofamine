@@ -1,7 +1,7 @@
 # deploy/docker-compose.prod.yml — Production стек сервисов для Dofamine Market
 # Развертывание на VPS (176.53.174.118, домен dofamine.avari.dev)
 
-name: dofamine-market
+name: avari-dofamine
 
 networks:
   dofamine-net:

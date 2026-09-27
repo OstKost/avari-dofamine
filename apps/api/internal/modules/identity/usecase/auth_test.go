@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/identity/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/identity/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/identity/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/identity/usecase"
 )
 
 type mockUserRepo struct {

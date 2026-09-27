@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/modules/delivery/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/delivery/domain"
 )
 
 func TestDelivery_Transitions(t *testing.T) {

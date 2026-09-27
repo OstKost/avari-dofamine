@@ -7,12 +7,12 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/ostkost/dofamine/api/internal/contracts"
-	"github.com/ostkost/dofamine/api/internal/modules/pickup/adapter/httpapi"
-	"github.com/ostkost/dofamine/api/internal/modules/pickup/adapter/postgres"
-	"github.com/ostkost/dofamine/api/internal/modules/pickup/port"
-	"github.com/ostkost/dofamine/api/internal/modules/pickup/usecase"
-	"github.com/ostkost/dofamine/api/internal/platform/random"
+	"github.com/ostkost/avari-dofamine/api/internal/contracts"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/pickup/adapter/httpapi"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/pickup/adapter/postgres"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/pickup/port"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/pickup/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/random"
 )
 
 type Module struct {

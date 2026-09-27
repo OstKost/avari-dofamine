@@ -10,7 +10,7 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
-	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/db"
 )
 
 // Transition представляет запланированный переход состояния в БД (ADR-005).

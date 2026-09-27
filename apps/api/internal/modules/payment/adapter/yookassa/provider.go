@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/contracts"
+	"github.com/ostkost/avari-dofamine/api/internal/contracts"
 )
 
 type Config struct {

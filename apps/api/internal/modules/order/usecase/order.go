@@ -6,11 +6,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/contracts"
-	"github.com/ostkost/dofamine/api/internal/modules/order/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/order/port"
-	"github.com/ostkost/dofamine/api/internal/platform/db"
-	"github.com/ostkost/dofamine/api/internal/platform/outbox"
+	"github.com/ostkost/avari-dofamine/api/internal/contracts"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/order/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/order/port"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/db"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/outbox"
 )
 
 type OrderUseCase struct {

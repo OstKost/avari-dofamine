@@ -6,14 +6,14 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dofamine/api/internal/contracts"
-	kafkaadapter "github.com/ostkost/dofamine/api/internal/modules/delivery/adapter/kafka"
-	"github.com/ostkost/dofamine/api/internal/modules/delivery/adapter/postgres"
-	"github.com/ostkost/dofamine/api/internal/modules/delivery/domain"
-	"github.com/ostkost/dofamine/api/internal/modules/delivery/usecase"
-	"github.com/ostkost/dofamine/api/internal/platform/db"
-	"github.com/ostkost/dofamine/api/internal/platform/random"
-	"github.com/ostkost/dofamine/api/internal/platform/scheduler"
+	"github.com/ostkost/avari-dofamine/api/internal/contracts"
+	kafkaadapter "github.com/ostkost/avari-dofamine/api/internal/modules/delivery/adapter/kafka"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/delivery/adapter/postgres"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/delivery/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/delivery/usecase"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/db"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/random"
+	"github.com/ostkost/avari-dofamine/api/internal/platform/scheduler"
 )
 
 var _ contracts.DeliveryLookup = (*Module)(nil)

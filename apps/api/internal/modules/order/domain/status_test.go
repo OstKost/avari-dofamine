@@ -3,7 +3,7 @@ package domain_test
 import (
 	"testing"
 
-	"github.com/ostkost/dofamine/api/internal/modules/order/domain"
+	"github.com/ostkost/avari-dofamine/api/internal/modules/order/domain"
 )
 
 func TestStatus_Transitions(t *testing.T) {
