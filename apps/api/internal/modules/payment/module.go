@@ -8,17 +8,17 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/contracts"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/adapter/httpapi"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/adapter/kafka"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/adapter/mock"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/adapter/postgres"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/adapter/yookassa"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/usecase"
-	"github.com/ostkost/dopamine-market/api/internal/platform/config"
-	"github.com/ostkost/dopamine-market/api/internal/platform/db"
-	"github.com/ostkost/dopamine-market/api/internal/platform/random"
+	"github.com/ostkost/dofamine/api/internal/contracts"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/adapter/httpapi"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/adapter/kafka"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/adapter/mock"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/adapter/postgres"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/adapter/yookassa"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/usecase"
+	"github.com/ostkost/dofamine/api/internal/platform/config"
+	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/dofamine/api/internal/platform/random"
 )
 
 type Module struct {

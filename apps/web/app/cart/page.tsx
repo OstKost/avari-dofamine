@@ -59,7 +59,7 @@ interface PromoDiscount {
 }
 
 const KNOWN_PROMOS: Record<string, PromoDiscount> = {
-  DOPAMINE: { code: "DOPAMINE", percent: 20, label: "Скидка -20% на весь заказ" },
+  DOFAMINE: { code: "DOFAMINE", percent: 20, label: "Скидка -20% на весь заказ" },
   BOOST: { code: "BOOST", percent: 30, label: "Скидка -30% для фанатов Boosty" },
   SUPER50: { code: "SUPER50", percent: 50, label: "Супер-скидка -50%" },
   MAX70: { code: "MAX70", percent: 70, label: "Максимальная скидка -70%" },
@@ -97,10 +97,10 @@ export default function CartPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Promo code state
-  const [promoInput, setPromoInput] = useState("DOPAMINE");
-  const [appliedPromo, setAppliedPromo] = useState<PromoDiscount | null>(KNOWN_PROMOS.DOPAMINE);
+  const [promoInput, setPromoInput] = useState("DOFAMINE");
+  const [appliedPromo, setAppliedPromo] = useState<PromoDiscount | null>(KNOWN_PROMOS.DOFAMINE);
   const [promoFeedback, setPromoFeedback] = useState<{ message: string; isError?: boolean } | null>({
-    message: "Промокод «DOPAMINE» успешно применен (-20%)",
+    message: "Промокод «DOFAMINE» успешно применен (-20%)",
   });
 
   const handleApplyPromo = () => {
@@ -321,7 +321,7 @@ export default function CartPage() {
           </div>
           <p className="text-xs sm:text-sm text-[#F4F1E8] font-medium leading-relaxed">
             💡 <strong className="text-amber-300">Подсказка:</strong> используйте промокод{" "}
-            <code className="px-1.5 py-0.5 rounded bg-[#050B14] border border-amber-400/40 text-amber-300 font-mono font-bold cursor-pointer hover:bg-amber-400/20" onClick={() => { setPromoInput("DOPAMINE"); setAppliedPromo(KNOWN_PROMOS.DOPAMINE); setPromoFeedback({ message: "Промокод «DOPAMINE» применен (-20%)" }); }}>DOPAMINE</code> (-20%),{" "}
+            <code className="px-1.5 py-0.5 rounded bg-[#050B14] border border-amber-400/40 text-amber-300 font-mono font-bold cursor-pointer hover:bg-amber-400/20" onClick={() => { setPromoInput("DOFAMINE"); setAppliedPromo(KNOWN_PROMOS.DOFAMINE); setPromoFeedback({ message: "Промокод «DOFAMINE» применен (-20%)" }); }}>DOFAMINE</code> (-20%),{" "}
             <code className="px-1.5 py-0.5 rounded bg-[#050B14] border border-amber-400/40 text-amber-300 font-mono font-bold cursor-pointer hover:bg-amber-400/20" onClick={() => { setPromoInput("BOOST"); setAppliedPromo(KNOWN_PROMOS.BOOST); setPromoFeedback({ message: "Промокод «BOOST» применен (-30%)" }); }}>BOOST</code> (-30%) или{" "}
             <code className="px-1.5 py-0.5 rounded bg-[#050B14] border border-amber-400/40 text-amber-300 font-mono font-bold cursor-pointer hover:bg-amber-400/20" onClick={() => { setPromoInput("MAX70"); setAppliedPromo(KNOWN_PROMOS.MAX70); setPromoFeedback({ message: "Промокод «MAX70» применен (-70%)" }); }}>MAX70</code> (-70%) для скидки до 70%!
           </p>
@@ -467,7 +467,7 @@ export default function CartPage() {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") handleApplyPromo();
                   }}
-                  placeholder="DOPAMINE / BOOST / MAX70"
+                  placeholder="DOFAMINE / BOOST / MAX70"
                   className="flex-1 px-3 py-2 text-xs font-mono uppercase rounded-xl bg-[#050B14] border border-[#1E3A50] text-[#F4F1E8] focus:border-amber-400 focus:outline-none"
                 />
                 <Button
@@ -544,7 +544,7 @@ export default function CartPage() {
               <span>Нравится проект?</span>
             </div>
             <p className="text-[#9FB3C4] text-[11px] leading-relaxed">
-              Dopamine Market полностью бесплатен для пользователей. Вы можете поддержать автора на Boosty!
+              Dofamine Market полностью бесплатен для пользователей. Вы можете поддержать автора на Boosty!
             </p>
             <a
               href="https://boosty.to/avari"

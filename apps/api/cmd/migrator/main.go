@@ -24,7 +24,7 @@ import (
 	_ "github.com/jackc/pgx/v5/stdlib" // database/sql driver для goose
 	"github.com/pressly/goose/v3"
 
-	"github.com/ostkost/dopamine-market/api/internal/platform/migrations"
+	"github.com/ostkost/dofamine/api/internal/platform/migrations"
 )
 
 func main() {

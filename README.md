@@ -1,10 +1,10 @@
-# Avari Dopamine (Dopamine Market)
+# Avari Dofamine (Dofamine Market)
 
 <div align="center">
 
-<img src="apps/web/public/logo-detailed.png" alt="Avari Dopamine Logo" width="180" />
+<img src="apps/web/public/logo-detailed.png" alt="Avari Dofamine Logo" width="180" />
 
-### **The Safe Dopamine Shopping Simulator & Production-Grade Engineering Showcase**
+### **The Safe Dofamine Shopping Simulator & Production-Grade Engineering Showcase**
 
 [![Go Version](https://img.shields.io/badge/Go-1.23+-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://golang.org)
 [![Next.js Version](https://img.shields.io/badge/Next.js-15_(App_Router)-000000?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
@@ -39,12 +39,12 @@
 
 ## ✨ Product Vision & Psychology
 
-**Avari Dopamine** is an interactive, full-cycle marketplace and delivery simulation engineered around a specific psychological insight:
+**Avari Dofamine** is an interactive, full-cycle marketplace and delivery simulation engineered around a specific psychological insight:
 
 > **Users frequently browse and shop online not for the physical items, but for the anticipation and the ritual itself:**
 > *(Search ➔ Discovery ➔ Add to Cart ➔ Checkout ➔ Real-time Waiting ➔ Delivery Arrival ➔ Triumph)*
 
-Real-world e-commerce involves impulse spending, buyer's remorse, and heavy logistical footprints. **Avari Dopamine** turns this ritual into a playful, controlled, and guilt-free micro-reward experience:
+Real-world e-commerce involves impulse spending, buyer's remorse, and heavy logistical footprints. **Avari Dofamine** turns this ritual into a playful, controlled, and guilt-free micro-reward experience:
 
 - 🪙 **Invariant Pricing (`INV-01`)**: Every order costs exactly **10.00 RUB**, regardless of whether the cart contains a cup of coffee or a high-end gadget.
 - 📍 **Procedural Geodesic Pickups (`INV-03`)**: Generates 5–8 realistic pickup points within a 100–500m radius of the user's real browser coordinates using spherical trigonometry.
@@ -214,7 +214,7 @@ flowchart TD
 ## 📂 Repository Structure
 
 ```
-avari-dopamine/
+avari-dofamine/
 ├── AGENTS.md                  # Constitution for autonomous AI development
 ├── Makefile                   # Root automation: dev, test, lint, migrate, seed
 ├── deploy/
@@ -253,8 +253,8 @@ avari-dopamine/
 
 ### 1. Clone & Configure Environment
 ```bash
-git clone https://github.com/OstKost/avari-dopamine.git
-cd avari-dopamine
+git clone https://github.com/OstKost/avari-dofamine.git
+cd avari-dofamine
 
 # Create local environment config
 cp .env.example .env

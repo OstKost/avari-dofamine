@@ -10,7 +10,7 @@ import (
 var (
 	OrdersCreatedTotal = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "dopamine",
+			Namespace: "dofamine",
 			Subsystem: "orders",
 			Name:      "created_total",
 			Help:      "Общее количество созданных заказов",
@@ -19,7 +19,7 @@ var (
 
 	OrdersPaidTotal = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "dopamine",
+			Namespace: "dofamine",
 			Subsystem: "orders",
 			Name:      "paid_total",
 			Help:      "Общее количество успешно оплаченных заказов",
@@ -28,7 +28,7 @@ var (
 
 	PaymentsInitiatedTotal = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "dopamine",
+			Namespace: "dofamine",
 			Subsystem: "payments",
 			Name:      "initiated_total",
 			Help:      "Общее количество инициированных платежей по провайдерам",
@@ -38,7 +38,7 @@ var (
 
 	PaymentsSucceededTotal = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "dopamine",
+			Namespace: "dofamine",
 			Subsystem: "payments",
 			Name:      "succeeded_total",
 			Help:      "Общее количество успешных платежей",
@@ -48,7 +48,7 @@ var (
 
 	PaymentsFailedTotal = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Namespace: "dopamine",
+			Namespace: "dofamine",
 			Subsystem: "payments",
 			Name:      "failed_total",
 			Help:      "Общее количество неудавшихся платежей",
@@ -58,7 +58,7 @@ var (
 
 	HttpRequestDuration = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
-			Namespace: "dopamine",
+			Namespace: "dofamine",
 			Subsystem: "http",
 			Name:      "request_duration_seconds",
 			Help:      "Длительность HTTP запросов в секундах",

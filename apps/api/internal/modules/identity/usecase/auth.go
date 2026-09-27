@@ -8,8 +8,8 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity/port"
+	"github.com/ostkost/dofamine/api/internal/modules/identity/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/identity/port"
 )
 
 type TokenPair struct {
@@ -118,7 +118,7 @@ func (uc *AuthUseCase) QuickLoginOrRegister(ctx context.Context, rawEmail, nickn
 	}
 
 	// New quick user: generate secure random password
-	autoPass := "dopamine-quick-" + uuid.New().String()
+	autoPass := "dofamine-quick-" + uuid.New().String()
 	passwordHash, err := uc.hasher.HashPassword(autoPass)
 	if err != nil {
 		return nil, fmt.Errorf("hashing password: %w", err)

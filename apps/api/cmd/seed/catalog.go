@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/port"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/port"
 	"github.com/shopspring/decimal"
 )
 
@@ -41,269 +41,269 @@ func seedCatalog(ctx context.Context, repo port.CatalogRepository) error {
 			Subcategories: []subcategoryTemplate{
 				{
 					Name:        "Антистрессы и спиннеры",
-					Slug:        "dopamine-antistress",
+					Slug:        "dofamine-antistress",
 					Description: "Спиннеры, кликеры, кубики и гаджеты для снятия напряжения на работе",
 					Products: []productTemplate{
 						{
 							Name:        "Бесконечная пузырчатая пленка Turbo 3000",
 							Description: "Электронный эмулятор лопанья пузырьков с тактильной отдачей и звуком 8K 'чпок'.",
 							PriceRUB:    350,
-							ImageSeed:   "dopamine-bubble-wrap",
+							ImageSeed:   "dofamine-bubble-wrap",
 						},
 						{
 							Name:        "Спиннер с гироскопом и RGB-подсветкой",
 							Description: "Крутится дольше, чем длится рабочий день в пятницу. В темноте рисует график падения биткоина.",
 							PriceRUB:    590,
-							ImageSeed:   "dopamine-spinner-rgb",
+							ImageSeed:   "dofamine-spinner-rgb",
 						},
 						{
 							Name:        "Магнитный кубик Fidget Cube Pro",
 							Description: "6 граней непрерывного щелкания, кручения и переключения. Легальный успокоитель на стендапах.",
 							PriceRUB:    490,
-							ImageSeed:   "dopamine-fidget-cube",
+							ImageSeed:   "dofamine-fidget-cube",
 						},
 						{
 							Name:        "Титановый левитирующий волчок Inception",
 							Description: "Вращается на магнитной подушке до 45 минут. Позволяет проверить, не спите ли вы на совещании.",
 							PriceRUB:    1290,
-							ImageSeed:   "dopamine-levitating-top",
+							ImageSeed:   "dofamine-levitating-top",
 						},
 						{
 							Name:        "Сквиш Капибара Дзен-Мастер",
 							Description: "Сверхмягкая капибара в позе лотоса. При сжатии испускает легкий аромат ромашкового чая.",
 							PriceRUB:    420,
-							ImageSeed:   "dopamine-squish-capybara",
+							ImageSeed:   "dofamine-squish-capybara",
 						},
 						{
 							Name:        "Антистресс-эспандер «Гнев Тимлида»",
 							Description: "Усиленная жесткость 50 кг. Выдерживает любые эмоции после код-ревью джуниора.",
 							PriceRUB:    650,
-							ImageSeed:   "dopamine-gripper-lead",
+							ImageSeed:   "dofamine-gripper-lead",
 						},
 						{
 							Name:        "Тактильный слайм с ароматом свежего эспрессо",
 							Description: "Жидкое спокойствие кофейного цвета. Не липнет к рукам и клавиатуре.",
 							PriceRUB:    290,
-							ImageSeed:   "dopamine-slime-espresso",
+							ImageSeed:   "dofamine-slime-espresso",
 						},
 						{
 							Name:        "Магнитные шарики Neocube Matte Black",
 							Description: "216 магнитных сфер для сборки геометрических фигур и медитативного перебирания в руках.",
 							PriceRUB:    890,
-							ImageSeed:   "dopamine-neocube-black",
+							ImageSeed:   "dofamine-neocube-black",
 						},
 						{
 							Name:        "Карманный кликер с переключателями Cherry MX Blue",
 							Description: "4 механические клавиши с сочнейшим тактильным кликом для любителей щелкать ручкой.",
 							PriceRUB:    450,
-							ImageSeed:   "dopamine-key-clicker",
+							ImageSeed:   "dofamine-key-clicker",
 						},
 						{
 							Name:        "Головоломка «Танталовы муки» из титана",
 							Description: "Деревянно-титановый узел, который невозможно распутать без 100 грамм чая и дзена.",
 							PriceRUB:    790,
-							ImageSeed:   "dopamine-puzzle-titan",
+							ImageSeed:   "dofamine-puzzle-titan",
 						},
 					},
 				},
 				{
 					Name:        "Пузырчатая пленка и залипалки",
-					Slug:        "dopamine-sensory",
+					Slug:        "dofamine-sensory",
 					Description: "Сенсорные игрушки, кинетический песок и оптические гипнотизеры",
 					Products: []productTemplate{
 						{
 							Name:        "Жидкие песочные часы с неоновыми каплями",
 							Description: "Двухцветные капли масла гравитационно перетекают сверху вниз, гипнотизируя мозг.",
 							PriceRUB:    490,
-							ImageSeed:   "dopamine-liquid-timer",
+							ImageSeed:   "dofamine-liquid-timer",
 						},
 						{
 							Name:        "Кинетический песок «Лунная пыль» 1 кг",
 							Description: "Никогда не высыхает, держит форму замков и тает в руках, снимая тревожность.",
 							PriceRUB:    690,
-							ImageSeed:   "dopamine-kinetic-sand",
+							ImageSeed:   "dofamine-kinetic-sand",
 						},
 						{
 							Name:        "Левитирующий маятник Ньютона LED",
 							Description: "Светящиеся стеклянные шары демонстрируют сохранение импульса в полной темноте.",
 							PriceRUB:    1490,
-							ImageSeed:   "dopamine-newton-cradle",
+							ImageSeed:   "dofamine-newton-cradle",
 						},
 						{
 							Name:        "Калейдоскоп «Психоделический кот»",
 							Description: "Оптический прибор с зеркальной призмой, превращающий рабочий стол в фрактальный космос.",
 							PriceRUB:    390,
-							ImageSeed:   "dopamine-kaleidoscope-cat",
+							ImageSeed:   "dofamine-kaleidoscope-cat",
 						},
 						{
 							Name:        "Силиконовый коврик Pop-It Макси 30x30 см",
 							Description: "100 ячеек бесконечного лопанья для снятия стресса всей командой.",
 							PriceRUB:    550,
-							ImageSeed:   "dopamine-popit-maxi",
+							ImageSeed:   "dofamine-popit-maxi",
 						},
 						{
 							Name:        "Магнитная ферромагнитная жидкость в колбе",
 							Description: "Черная нано-жидкость танцует и ощетинивается иглами под действием неодимового магнита.",
 							PriceRUB:    1190,
-							ImageSeed:   "dopamine-ferrofluid",
+							ImageSeed:   "dofamine-ferrofluid",
 						},
 						{
 							Name:        "Сенсорная лампа «Лава-Глобус» с блестками",
 							Description: "Теплый мягкий свет и медленно плавающий воск создают атмосферу ночного релакса.",
 							PriceRUB:    1350,
-							ImageSeed:   "dopamine-lava-lamp",
+							ImageSeed:   "dofamine-lava-lamp",
 						},
 						{
 							Name:        "Настольный японский садик Дзен с белым песком",
 							Description: "Мини-грабли, камни и бамбуковый заборчик для создания идеального порядка.",
 							PriceRUB:    990,
-							ImageSeed:   "dopamine-zen-garden",
+							ImageSeed:   "dofamine-zen-garden",
 						},
 						{
 							Name:        "Тактильные металлические кольца Акупунктура (5 шт)",
 							Description: "Массажные пружинные кольца для пальцев, разгоняющие кровь после 8 часов кодинга.",
 							PriceRUB:    190,
-							ImageSeed:   "dopamine-massage-rings",
+							ImageSeed:   "dofamine-massage-rings",
 						},
 						{
 							Name:        "Флипбук-мультфильм «Побег из офиса»",
 							Description: "120 страниц быстрой аналоговой анимации про счастливого человечка.",
 							PriceRUB:    320,
-							ImageSeed:   "dopamine-flipbook-escape",
+							ImageSeed:   "dofamine-flipbook-escape",
 						},
 					},
 				},
 				{
 					Name:        "Мемные штуки и офисный троллинг",
-					Slug:        "dopamine-memes",
+					Slug:        "dofamine-memes",
 					Description: "Предметы с повышенной концентрацией юмора для опенспейса",
 					Products: []productTemplate{
 						{
 							Name:        "Антистресс-подушка «Гигантский Enter» USB",
 							Description: "Реально подключается по USB и отправляет код или сообщение при ударе кулаком.",
 							PriceRUB:    1100,
-							ImageSeed:   "dopamine-giant-enter",
+							ImageSeed:   "dofamine-giant-enter",
 						},
 						{
 							Name:        "Кнопка «Сделать всё красиво» со звуком фанфар",
 							Description: "Красная кнопка на стол. Нажимаешь — гремят овации и женский голос кричит 'Гениально!'.",
 							PriceRUB:    750,
-							ImageSeed:   "dopamine-button-beauty",
+							ImageSeed:   "dofamine-button-beauty",
 						},
 						{
 							Name:        "Мотивационная карточка с цитатами Джейсона Стетхема",
 							Description: "Голографическая открытка: 'Работа не волк, работа — это ворк, а волк — это ходить'.",
 							PriceRUB:    150,
-							ImageSeed:   "dopamine-statham-card",
+							ImageSeed:   "dofamine-statham-card",
 						},
 						{
 							Name:        "Табличка на дверь «Осторожно, работает сеньор»",
 							Description: "Металлическая табличка с предупреждением о повышенной опасности глупых вопросов.",
 							PriceRUB:    290,
-							ImageSeed:   "dopamine-senior-sign",
+							ImageSeed:   "dofamine-senior-sign",
 						},
 						{
 							Name:        "Печать с надписью «ОДОБРЕНО КОТОМ»",
 							Description: "Автоматическая штемпельная краска для заверения архитектурных решений и счетов.",
 							PriceRUB:    450,
-							ImageSeed:   "dopamine-cat-stamp",
+							ImageSeed:   "dofamine-cat-stamp",
 						},
 						{
 							Name:        "Очки с пикселями Thug Life 8-bit",
 							Description: "Надеваешь при успешном закрытии критического баг-репорта на глазах у заказчика.",
 							PriceRUB:    390,
-							ImageSeed:   "dopamine-thug-glasses",
+							ImageSeed:   "dofamine-thug-glasses",
 						},
 						{
 							Name:        "Тамагочи с искусственной депрессией",
 							Description: "Виртуальный питомец, которого нужно вовремя поить кофе и хвалить за коммиты.",
 							PriceRUB:    890,
-							ImageSeed:   "dopamine-depressed-tamagotchi",
+							ImageSeed:   "dofamine-depressed-tamagotchi",
 						},
 						{
 							Name:        "Ждун плюшевый в натуральную величину (мини)",
 							Description: "Идеальный собеседник для метода утёнка и ожидания окончания деплоя.",
 							PriceRUB:    850,
-							ImageSeed:   "dopamine-plush-zhdun",
+							ImageSeed:   "dofamine-plush-zhdun",
 						},
 						{
 							Name:        "Детектор сарказма со звуковой сиреной",
 							Description: "Пищит каждый раз, когда менеджер говорит: 'Тут задача ровно на 5 минут'.",
 							PriceRUB:    1250,
-							ImageSeed:   "dopamine-sarcasm-detector",
+							ImageSeed:   "dofamine-sarcasm-detector",
 						},
 						{
 							Name:        "Светящаяся утка в шлеме с пропеллером",
 							Description: "Устанавливается на монитор или самокат, пропеллер бешено крутится от ветра.",
 							PriceRUB:    350,
-							ImageSeed:   "dopamine-duck-helmet",
+							ImageSeed:   "dofamine-duck-helmet",
 						},
 					},
 				},
 				{
 					Name:        "Бесполезные гениальные изобретения",
-					Slug:        "dopamine-gadgets",
+					Slug:        "dofamine-gadgets",
 					Description: "Решения для несуществующих проблем, которые хочется купить прямо сейчас",
 					Products: []productTemplate{
 						{
 							Name:        "Держатель для одного чипса из титана",
 							Description: "Эргономичный пинцет для чипсов, чтобы пальцы оставались идеально чистыми.",
 							PriceRUB:    490,
-							ImageSeed:   "dopamine-chip-holder",
+							ImageSeed:   "dofamine-chip-holder",
 						},
 						{
 							Name:        "Ложка с климат-контролем и термометром",
 							Description: "Цветная индикация показывает, когда суп остыл ровно до идеальных 55°C.",
 							PriceRUB:    650,
-							ImageSeed:   "dopamine-climate-spoon",
+							ImageSeed:   "dofamine-climate-spoon",
 						},
 						{
 							Name:        "Зонт для чашки капучино на присоске",
 							Description: "Миниатюрный купол от дождя, сохраняющий шелковистую молочную пенку на ходу.",
 							PriceRUB:    390,
-							ImageSeed:   "dopamine-cup-umbrella",
+							ImageSeed:   "dofamine-cup-umbrella",
 						},
 						{
 							Name:        "Мини-пылесос для клавиатуры в виде свинки",
 							Description: "USB-пылесос со щелевой насадкой достает крошки из-под клавиш Space и Shift.",
 							PriceRUB:    890,
-							ImageSeed:   "dopamine-keyboard-vacuum",
+							ImageSeed:   "dofamine-keyboard-vacuum",
 						},
 						{
 							Name:        "Шумоподавляющие носки для походов к холодильнику",
 							Description: "Бесшумная подошва из вспененного микроволокна. Ни одна половица не скрипнет.",
 							PriceRUB:    590,
-							ImageSeed:   "dopamine-stealth-socks",
+							ImageSeed:   "dofamine-stealth-socks",
 						},
 						{
 							Name:        "Автопереворачиватель подушки на холодную сторону",
 							Description: "Двусторонний гироскопический механизм для непрерывной свежести сна.",
 							PriceRUB:    1490,
-							ImageSeed:   "dopamine-pillow-flipper",
+							ImageSeed:   "dofamine-pillow-flipper",
 						},
 						{
 							Name:        "Компас, указывающий на ближайший диван",
 							Description: "Магнитная стрелка откалибрована на поиск зоны максимального уюта и комфорта.",
 							PriceRUB:    520,
-							ImageSeed:   "dopamine-couch-compass",
+							ImageSeed:   "dofamine-couch-compass",
 						},
 						{
 							Name:        "Сканер ауры микроволновки",
 							Description: "LED-индикатор настроения разогреваемой шаурмы: от 'ледяная внутри' до 'лава'.",
 							PriceRUB:    780,
-							ImageSeed:   "dopamine-aura-scanner",
+							ImageSeed:   "dofamine-aura-scanner",
 						},
 						{
 							Name:        "USB-вентилятор для остывания чая",
 							Description: "Направленный регулируемый поток воздуха, экономящий до 7 минут ожидания.",
 							PriceRUB:    620,
-							ImageSeed:   "dopamine-tea-cooler",
+							ImageSeed:   "dofamine-tea-cooler",
 						},
 						{
 							Name:        "Антигравитационная ручка космонавта",
 							Description: "Пишет вверх ногами, под водой, на жирной бумаге и при морозе -30°C.",
 							PriceRUB:    950,
-							ImageSeed:   "dopamine-space-pen",
+							ImageSeed:   "dofamine-space-pen",
 						},
 					},
 				},
@@ -321,7 +321,7 @@ func seedCatalog(ctx context.Context, repo port.CatalogRepository) error {
 					Description: "Премиальное шумоподавление, глубокий бас и кристальный Hi-Res звук",
 					Products: []productTemplate{
 						{
-							Name:        "Наушники Somy WH-1000XM6 Dopamine ANC",
+							Name:        "Наушники Somy WH-1000XM6 Dofamine ANC",
 							Description: "Флагманский ANC с 12 микрофонами, поддержкой LDAC+ и режимом полной изоляции от реальности.",
 							PriceRUB:    39990,
 							ImageSeed:   "electronics-somy-wh1000",
@@ -778,7 +778,7 @@ func seedCatalog(ctx context.Context, repo port.CatalogRepository) error {
 					Products: []productTemplate{
 						{
 							Name:        "Смартфон PineApple Phone 16 Pro Max 1TB Titanium",
-							Description: "Корпус из аэрокосмического титана, чип A18 Bionic, кнопка Dopamine Action и 5x тетрапризма.",
+							Description: "Корпус из аэрокосмического титана, чип A18 Bionic, кнопка Dofamine Action и 5x тетрапризма.",
 							PriceRUB:    189990,
 							ImageSeed:   "luxury-pineapple-phone16",
 						},
@@ -1060,10 +1060,10 @@ func seedCatalog(ctx context.Context, repo port.CatalogRepository) error {
 					Description: "Стритвир сникеры на воздушных баллонах и пене повышенной амортизации",
 					Products: []productTemplate{
 						{
-							Name:        "Кроссовки Nikey Air Max Dopamine Flyknit",
+							Name:        "Кроссовки Nikey Air Max Dofamine Flyknit",
 							Description: "Полноразмерная воздушная капсула Air, дышащий верх Flyknit и цветная флуоресцентная подошва.",
 							PriceRUB:    11990,
-							ImageSeed:   "streetwear-nikey-air-dopamine",
+							ImageSeed:   "streetwear-nikey-air-dofamine",
 						},
 						{
 							Name:        "Кроссовки Adibas Yeezy SuperBoost 350 V3",
@@ -1407,7 +1407,7 @@ func seedCatalog(ctx context.Context, repo port.CatalogRepository) error {
 							Name:        "Сет роллов «Дофаминовый взрыв 32 шт»",
 							Description: "Филадельфия VIP, Запеченный угорь, Калифорния с крабом и Темпура ролл с лососем.",
 							PriceRUB:    1890,
-							ImageSeed:   "food-set-dopamine-rolls-32",
+							ImageSeed:   "food-set-dofamine-rolls-32",
 						},
 						{
 							Name:        "Шашлычный мясной пир на компанию (1.2 кг)",

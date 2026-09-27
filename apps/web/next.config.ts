@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  output: "standalone",
   images: {
     dangerouslyAllowSVG: true,
     contentDispositionType: "attachment",
@@ -20,6 +21,23 @@ const nextConfig: NextConfig = {
         hostname: "placehold.co",
       },
     ],
+  },
+  async rewrites() {
+    const backendUrl = process.env.INTERNAL_API_URL || process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8080";
+    return [
+      {
+        source: "/api/healthz",
+        destination: `${backendUrl}/healthz`,
+      },
+      {
+        source: "/api/metrics",
+        destination: `${backendUrl}/metrics`,
+      },
+      {
+        source: "/api/:path*",
+        destination: `${backendUrl}/:path*`,
+      },
+    ];
   },
 };
 

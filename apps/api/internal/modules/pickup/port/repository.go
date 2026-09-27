@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/pickup/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/pickup/domain"
 )
 
 type PickupRepository interface {

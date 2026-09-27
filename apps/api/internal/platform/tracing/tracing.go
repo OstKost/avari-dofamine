@@ -20,12 +20,12 @@ const (
 
 var (
 	propagator = propagation.TraceContext{}
-	tracer     = otel.GetTracerProvider().Tracer("dopamine-market")
+	tracer     = otel.GetTracerProvider().Tracer("dofamine-market")
 )
 
 func Tracer() trace.Tracer {
 	if tracer == nil {
-		return noop.NewTracerProvider().Tracer("dopamine-market")
+		return noop.NewTracerProvider().Tracer("dofamine-market")
 	}
 	return tracer
 }

@@ -1,7 +1,7 @@
 openapi: 3.1.0
 
 info:
-  title: Dopamine Market API
+  title: Dofamine Market API
   description: >
     Синтетический маркетплейс/сервис доставки — портфолио-проект.
     Монетизация: фиксированная плата 10₽ за оформленный заказ (INV-01).
@@ -9,12 +9,12 @@ info:
     таймер-стейт-машина (см. docs/prd/PRD.md, ADR-005, ADR-009).
   version: "1.0.0"
   contact:
-    name: Dopamine Market (портфолио-проект)
+    name: Dofamine Market (портфолио-проект)
 
 servers:
   - url: http://localhost:8080
     description: Локальная разработка
-  - url: https://api.dopamine-market.example.com
+  - url: https://api.dofamine-market.example.com
     description: Продакшн (заглушка домена)
 
 tags:
@@ -162,7 +162,7 @@ paths:
                   example: "user@gmail.com"
                 nickname:
                   type: string
-                  example: "CyberDopamine"
+                  example: "CyberDofamine"
                 provider:
                   type: string
                   enum: [google, yandex, apple, quick_email]

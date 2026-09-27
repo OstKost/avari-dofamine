@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/usecase"
-	"github.com/ostkost/dopamine-market/api/internal/platform/kafka"
+	"github.com/ostkost/dofamine/api/internal/modules/order/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/order/usecase"
+	"github.com/ostkost/dofamine/api/internal/platform/kafka"
 )
 
 type ConsumerHandler struct {

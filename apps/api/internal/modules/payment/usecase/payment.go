@@ -6,11 +6,11 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/contracts"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/port"
-	"github.com/ostkost/dopamine-market/api/internal/platform/db"
-	"github.com/ostkost/dopamine-market/api/internal/platform/outbox"
+	"github.com/ostkost/dofamine/api/internal/contracts"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/port"
+	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/dofamine/api/internal/platform/outbox"
 )
 
 type PaymentUseCase struct {
@@ -88,7 +88,7 @@ func (uc *PaymentUseCase) InitiatePayment(
 			}
 
 			outboxEvent, err := outbox.NewEvent(
-				"dopamine.events",
+				"dofamine.events",
 				orderID.String(),
 				"payment.initiated.v1",
 				PaymentEventPayload{
@@ -166,7 +166,7 @@ func (uc *PaymentUseCase) HandleWebhook(ctx context.Context, rawBody []byte, hea
 				}
 
 				outboxEvent, err := outbox.NewEvent(
-					"dopamine.events",
+					"dofamine.events",
 					payment.OrderID().String(),
 					eventType,
 					PaymentEventPayload{

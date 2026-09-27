@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/pickup/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/pickup/usecase"
-	"github.com/ostkost/dopamine-market/api/internal/platform/random"
+	"github.com/ostkost/dofamine/api/internal/modules/pickup/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/pickup/usecase"
+	"github.com/ostkost/dofamine/api/internal/platform/random"
 )
 
 type mockPickupRepo struct {

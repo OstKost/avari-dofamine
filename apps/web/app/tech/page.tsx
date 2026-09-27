@@ -18,8 +18,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export const metadata = {
-  title: "Архитектура и стек | Avari Dopamine (For Recruiters & Tech Leads)",
-  description: "Технический разбор архитектуры Dopamine Market: Modular Monolith, Clean Architecture, Transactional Outbox, SSE, Go + Next.js 15.",
+  title: "Архитектура и стек | Avari Dofamine (For Recruiters & Tech Leads)",
+  description: "Технический разбор архитектуры Dofamine Market: Modular Monolith, Clean Architecture, Transactional Outbox, SSE, Go + Next.js 15.",
 };
 
 export default function TechPage() {
@@ -38,7 +38,7 @@ export default function TechPage() {
         <h1 className="text-3xl sm:text-5xl font-black text-[#F4F1E8] tracking-tight max-w-4xl leading-tight">
           Архитектура и стек{" "}
           <span className="bg-gradient-to-r from-[#F2B84B] via-[#FFD37A] to-[#F2B84B] bg-clip-text text-transparent">
-            Dopamine Market
+            Dofamine Market
           </span>
         </h1>
 

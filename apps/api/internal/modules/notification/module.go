@@ -5,11 +5,11 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/contracts"
-	"github.com/ostkost/dopamine-market/api/internal/modules/notification/adapter/httpapi"
-	kafkaadapter "github.com/ostkost/dopamine-market/api/internal/modules/notification/adapter/kafka"
-	"github.com/ostkost/dopamine-market/api/internal/modules/notification/usecase"
-	"github.com/ostkost/dopamine-market/api/internal/platform/pubsub"
+	"github.com/ostkost/dofamine/api/internal/contracts"
+	"github.com/ostkost/dofamine/api/internal/modules/notification/adapter/httpapi"
+	kafkaadapter "github.com/ostkost/dofamine/api/internal/modules/notification/adapter/kafka"
+	"github.com/ostkost/dofamine/api/internal/modules/notification/usecase"
+	"github.com/ostkost/dofamine/api/internal/platform/pubsub"
 )
 
 var _ contracts.OrderEventBroadcast = (*Module)(nil)

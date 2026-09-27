@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const metadata = {
-  title: "О проекте и правила | Avari Dopamine",
-  description: "Концепция сервиса мгновенного удовольствия и предвкушения. Как работает Dopamine Market и правила покупок.",
+  title: "О проекте и правила | Avari Dofamine",
+  description: "Концепция сервиса мгновенного удовольствия и предвкушения. Как работает Dofamine Market и правила покупок.",
 };
 
 export default function AboutPage() {
@@ -21,7 +21,7 @@ export default function AboutPage() {
         <h1 className="text-3xl sm:text-5xl font-black text-[#F4F1E8] tracking-tight max-w-3xl mx-auto leading-tight">
           О проекте{" "}
           <span className="bg-gradient-to-r from-[#F2B84B] via-[#FFD37A] to-[#F2B84B] bg-clip-text text-transparent">
-            Avari Dopamine
+            Avari Dofamine
           </span>
         </h1>
 

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/payment/domain"
 )
 
 type PaymentRepository interface {

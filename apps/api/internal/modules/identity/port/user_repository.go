@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/identity/domain"
 )
 
 type UserRepository interface {

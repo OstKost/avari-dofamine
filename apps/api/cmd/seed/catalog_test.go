@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/domain"
 )
 
 type memoryCatalogRepo struct {
@@ -142,7 +142,7 @@ func TestSeedCatalog_CompletenessAndInvariants(t *testing.T) {
 		// Check category specific realistic price constraints
 		if strings.Contains(prod.CategoryName(), "🎪") {
 			if priceVal < 100 || priceVal > 1500 {
-				t.Errorf("dopamine shop product %q price %.2f outside 100 - 1500 range", prod.Name(), priceVal)
+				t.Errorf("dofamine shop product %q price %.2f outside 100 - 1500 range", prod.Name(), priceVal)
 			}
 		}
 		if strings.Contains(prod.CategoryName(), "👑") {

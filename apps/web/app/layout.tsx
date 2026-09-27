@@ -6,7 +6,7 @@ import { CurrencyProvider } from "@/lib/context/currency-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Avari Dopamine — Маркетплейс мгновенного дофамина",
+  title: "Avari Dofamine — Маркетплейс мгновенного дофамина",
   description: "Маркетплейс мгновенной радости: огромный каталог товаров, бесплатное оформление заказов, интерактивная симуляция доставки и геймификация.",
   icons: {
     icon: "/favicon.png",

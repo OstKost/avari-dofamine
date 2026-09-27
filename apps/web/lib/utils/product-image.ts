@@ -66,7 +66,7 @@ function detectIcon(name?: string, category?: string): string {
   if (combined.includes("часы") || combined.includes("smartwatch") || combined.includes("браслет")) return "⌚";
   if (combined.includes("камер") || combined.includes("фото") || combined.includes("дрон")) return "📷";
 
-  // 6. Dopamine & Toys 🎪🧸🎁
+  // 6. Dofamine & Toys 🎪🧸🎁
   if (combined.includes("допамин") || combined.includes("бокс") || combined.includes("сюрприз") || combined.includes("mystery") || combined.includes("подарок")) return "🎁";
   if (combined.includes("игрушк") || combined.includes("мишка") || combined.includes("дакимакура") || combined.includes("плюш")) return "🧸";
   if (combined.includes("антистресс") || combined.includes("попит") || combined.includes("сквиш") || combined.includes("спиннер")) return "🔮";
@@ -87,11 +87,11 @@ function hashString(str: string): number {
 }
 
 export function getProductImageUrl(seed: string, name?: string, category?: string): string {
-  const cleanSeed = seed || "dopamine-item";
+  const cleanSeed = seed || "dofamine-item";
   const hash = hashString(cleanSeed);
   const palette = PALETTES[hash % PALETTES.length];
   const icon = detectIcon(name, category);
-  const title = name ? (name.length > 26 ? name.slice(0, 24) + "…" : name) : "Dopamine Item";
+  const title = name ? (name.length > 26 ? name.slice(0, 24) + "…" : name) : "Dofamine Item";
   const cat = category || "Синтетический маркет";
 
   // Escape special XML characters

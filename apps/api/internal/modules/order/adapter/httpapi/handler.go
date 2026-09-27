@@ -9,9 +9,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/usecase"
-	"github.com/ostkost/dopamine-market/api/internal/platform/httpserver"
+	"github.com/ostkost/dofamine/api/internal/modules/order/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/order/usecase"
+	"github.com/ostkost/dofamine/api/internal/platform/httpserver"
 )
 
 type Handler struct {

@@ -214,7 +214,7 @@ export default function OnboardingPage() {
                         {pt.name}
                       </h4>
                       <p className="text-xs text-[#9FB3C4]">
-                        Синтетический ПВЗ Avari Dopamine
+                        Синтетический ПВЗ Avari Dofamine
                       </p>
                     </div>
                   </div>

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/cart/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/cart/domain"
 )
 
 func TestCart_ImmutabilityAndOperations(t *testing.T) {

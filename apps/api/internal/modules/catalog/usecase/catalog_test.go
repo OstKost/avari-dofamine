@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/usecase"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/usecase"
 	"github.com/shopspring/decimal"
 )
 

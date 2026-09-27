@@ -748,7 +748,7 @@ export interface operations {
                      * @example user@gmail.com
                      */
                     email: string;
-                    /** @example CyberDopamine */
+                    /** @example CyberDofamine */
                     nickname?: string;
                     /**
                      * @example google

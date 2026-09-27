@@ -319,7 +319,7 @@ export function HeroParallax() {
           <div className="relative z-10 p-3.5 sm:p-4 rounded-3xl bg-[#0B1622]/95 backdrop-blur-2xl border border-amber-400/50 shadow-[0_0_35px_rgba(242,184,75,0.35)] group-hover:shadow-[0_0_50px_rgba(242,184,75,0.6)] group-hover:border-amber-300 transition-all duration-500 cursor-pointer">
             <Image
               src="/logo-detailed.png"
-              alt="Avari Dopamine Emblem"
+              alt="Avari Dofamine Emblem"
               width={88}
               height={88}
               className="object-contain drop-shadow-[0_0_20px_rgba(242,184,75,0.5)] group-hover:scale-105 transition-transform duration-500"

@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/contracts"
-	"github.com/ostkost/dopamine-market/api/internal/platform/random"
+	"github.com/ostkost/dofamine/api/internal/contracts"
+	"github.com/ostkost/dofamine/api/internal/platform/random"
 )
 
 type Provider struct {

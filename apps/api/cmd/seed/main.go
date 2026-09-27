@@ -6,9 +6,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog"
-	"github.com/ostkost/dopamine-market/api/internal/platform/config"
-	"github.com/ostkost/dopamine-market/api/internal/platform/db"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog"
+	"github.com/ostkost/dofamine/api/internal/platform/config"
+	"github.com/ostkost/dofamine/api/internal/platform/db"
 )
 
 func main() {

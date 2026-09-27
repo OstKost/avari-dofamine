@@ -5,7 +5,7 @@ import (
 )
 
 func setRequiredEnv(t *testing.T) {
-	t.Setenv("DATABASE_URL", "postgres://user:pass@localhost:5432/dopamine_market")
+	t.Setenv("DATABASE_URL", "postgres://user:pass@localhost:5432/dofamine_market")
 	t.Setenv("AUTH_JWT_SECRET", "test-secret-must-be-long-enough")
 }
 

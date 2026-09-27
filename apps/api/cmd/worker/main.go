@@ -23,21 +23,21 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	"github.com/ostkost/dopamine-market/api/internal/modules/cart"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog"
-	"github.com/ostkost/dopamine-market/api/internal/modules/delivery"
-	deliveryuc "github.com/ostkost/dopamine-market/api/internal/modules/delivery/usecase"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment"
-	"github.com/ostkost/dopamine-market/api/internal/modules/pickup"
-	"github.com/ostkost/dopamine-market/api/internal/platform/config"
-	"github.com/ostkost/dopamine-market/api/internal/platform/db"
-	"github.com/ostkost/dopamine-market/api/internal/platform/kafka"
-	"github.com/ostkost/dopamine-market/api/internal/platform/logger"
-	"github.com/ostkost/dopamine-market/api/internal/platform/outbox"
-	"github.com/ostkost/dopamine-market/api/internal/platform/random"
-	"github.com/ostkost/dopamine-market/api/internal/platform/redis"
-	"github.com/ostkost/dopamine-market/api/internal/platform/scheduler"
+	"github.com/ostkost/dofamine/api/internal/modules/cart"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog"
+	"github.com/ostkost/dofamine/api/internal/modules/delivery"
+	deliveryuc "github.com/ostkost/dofamine/api/internal/modules/delivery/usecase"
+	"github.com/ostkost/dofamine/api/internal/modules/order"
+	"github.com/ostkost/dofamine/api/internal/modules/payment"
+	"github.com/ostkost/dofamine/api/internal/modules/pickup"
+	"github.com/ostkost/dofamine/api/internal/platform/config"
+	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/dofamine/api/internal/platform/kafka"
+	"github.com/ostkost/dofamine/api/internal/platform/logger"
+	"github.com/ostkost/dofamine/api/internal/platform/outbox"
+	"github.com/ostkost/dofamine/api/internal/platform/random"
+	"github.com/ostkost/dofamine/api/internal/platform/redis"
+	"github.com/ostkost/dofamine/api/internal/platform/scheduler"
 )
 
 func main() {
@@ -68,7 +68,7 @@ func run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	log.Info("starting dopamine-market worker", slog.String("env", cfg.Env))
+	log.Info("starting dofamine-market worker", slog.String("env", cfg.Env))
 
 	dbPool, err := db.New(ctx, db.Config{
 		DSN:             cfg.DB.DSN,
@@ -110,7 +110,7 @@ func run() error {
 	// Outbox Relay (ADR-003): единый релей для опроса outbox_events всех модулей
 	kafkaProducer := kafka.NewProducer(kafka.Config{
 		Brokers:  cfg.Kafka.Brokers,
-		ClientID: "dopamine-worker-outbox",
+		ClientID: "dofamine-worker-outbox",
 	}, "")
 	defer func() {
 		if closeErr := kafkaProducer.Close(); closeErr != nil {
@@ -147,8 +147,8 @@ func run() error {
 	if len(cfg.Kafka.Brokers) > 0 {
 		// Consumer для order-service
 		orderConsumer := kafka.NewConsumer(
-			kafka.Config{Brokers: cfg.Kafka.Brokers, ClientID: "dopamine-order-consumer"},
-			"dopamine.events",
+			kafka.Config{Brokers: cfg.Kafka.Brokers, ClientID: "dofamine-order-consumer"},
+			"dofamine.events",
 			"order-service-group",
 		)
 		defer func() {
@@ -169,8 +169,8 @@ func run() error {
 
 		// Consumer для payment-service
 		paymentConsumer := kafka.NewConsumer(
-			kafka.Config{Brokers: cfg.Kafka.Brokers, ClientID: "dopamine-payment-consumer"},
-			"dopamine.events",
+			kafka.Config{Brokers: cfg.Kafka.Brokers, ClientID: "dofamine-payment-consumer"},
+			"dofamine.events",
 			"payment-service-group",
 		)
 		defer func() {
@@ -191,8 +191,8 @@ func run() error {
 
 		// Consumer для delivery-service (EPIC-07)
 		deliveryConsumer := kafka.NewConsumer(
-			kafka.Config{Brokers: cfg.Kafka.Brokers, ClientID: "dopamine-delivery-consumer"},
-			"dopamine.events",
+			kafka.Config{Brokers: cfg.Kafka.Brokers, ClientID: "dofamine-delivery-consumer"},
+			"dofamine.events",
 			"delivery-service-group",
 		)
 		defer func() {

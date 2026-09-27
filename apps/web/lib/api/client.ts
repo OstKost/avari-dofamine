@@ -48,7 +48,7 @@ export function isUnauthorizedError(err: unknown): boolean {
 export function getOrCreateGuestId(): string {
   if (typeof window === "undefined") return "";
   try {
-    let guestId = localStorage.getItem("dopamine_guest_id");
+    let guestId = localStorage.getItem("dofamine_guest_id");
     if (!guestId) {
       const match = document.cookie.match(/(?:^|;\s*)guest_id=([^;]*)/);
       if (match && match[1]) {
@@ -62,7 +62,7 @@ export function getOrCreateGuestId(): string {
               return v.toString(16);
             });
       }
-      localStorage.setItem("dopamine_guest_id", guestId);
+      localStorage.setItem("dofamine_guest_id", guestId);
       document.cookie = `guest_id=${guestId}; path=/; max-age=${30 * 24 * 3600}; SameSite=Lax`;
     }
     return guestId;

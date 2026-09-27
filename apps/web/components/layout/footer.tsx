@@ -12,7 +12,7 @@ export function Footer() {
               <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B1622] border border-[#1E3A50] p-1 shadow-sm">
                 <Image
                   src="/logo-detailed.png"
-                  alt="Avari Dopamine Logo"
+                  alt="Avari Dofamine Logo"
                   width={36}
                   height={36}
                   className="object-contain"
@@ -20,10 +20,10 @@ export function Footer() {
               </div>
               <div>
                 <span className="font-black text-lg text-[#F4F1E8]">
-                  Avari <span className="bg-gradient-to-r from-amber-400 to-amber-300 bg-clip-text text-transparent">Dopamine</span>
+                  Avari <span className="bg-gradient-to-r from-amber-400 to-amber-300 bg-clip-text text-transparent">Dofamine</span>
                 </span>
                 <span className="text-xs text-[#5E7488] block -mt-1 font-semibold">
-                  Dopamine Market Engine
+                  Dofamine Market Engine
                 </span>
               </div>
             </div>
@@ -100,7 +100,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 border-t border-[#1E3A50]/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#5E7488]">
-          <p>© {new Date().getFullYear()} Avari Dopamine. Все товары, курьеры и ПВЗ синтетические.</p>
+          <p>© {new Date().getFullYear()} Avari Dofamine. Все товары, курьеры и ПВЗ синтетические.</p>
           <div className="flex items-center gap-4">
             <a href="https://boosty.to/avari" target="_blank" rel="noopener noreferrer" className="hover:text-amber-300 transition-colors flex items-center gap-1 font-semibold text-amber-400/90">
               <span>💛 Поддержать разработчика на Boosty</span>

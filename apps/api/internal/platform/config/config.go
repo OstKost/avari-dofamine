@@ -112,7 +112,7 @@ func Load() (Config, error) {
 		},
 		Kafka: KafkaConfig{
 			Brokers:  strings.Split(getEnvDefault("KAFKA_BROKERS", "localhost:9092"), ","),
-			ClientID: getEnvDefault("KAFKA_CLIENT_ID", "dopamine-market-api"),
+			ClientID: getEnvDefault("KAFKA_CLIENT_ID", "dofamine-market-api"),
 		},
 		Logger: LoggerConfig{
 			Level:       getEnvDefault("LOG_LEVEL", "info"),

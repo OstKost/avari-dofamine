@@ -6,12 +6,12 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/contracts"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/adapter/httpapi"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/adapter/kafka"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/adapter/postgres"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/usecase"
-	"github.com/ostkost/dopamine-market/api/internal/platform/db"
+	"github.com/ostkost/dofamine/api/internal/contracts"
+	"github.com/ostkost/dofamine/api/internal/modules/order/adapter/httpapi"
+	"github.com/ostkost/dofamine/api/internal/modules/order/adapter/kafka"
+	"github.com/ostkost/dofamine/api/internal/modules/order/adapter/postgres"
+	"github.com/ostkost/dofamine/api/internal/modules/order/usecase"
+	"github.com/ostkost/dofamine/api/internal/platform/db"
 )
 
 type Module struct {

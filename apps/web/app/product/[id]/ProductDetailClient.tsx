@@ -99,7 +99,7 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
             <p className="text-base text-[#9FB3C4] leading-relaxed">
               {product.description ||
-                "Оригинальный товар из каталога Avari Dopamine. Гарантия моментального удовольствия и ярких эмоций."}
+                "Оригинальный товар из каталога Avari Dofamine. Гарантия моментального удовольствия и ярких эмоций."}
             </p>
 
             <div className="pt-4 border-t border-[#1E3A50]">

@@ -1,0 +1,200 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      deploy_target:
+        description: 'Target to deploy'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - 'all'
+          - 'backend-only'
+          - 'frontend-only'
+          - 'seed-catalog'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  # =========================================================================
+  # 1. Backend Verification (Tests, Lint, Architecture depguard)
+  # =========================================================================
+  backend-test:
+    name: 🐹 Backend Tests & Architecture Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐹 Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23.4"
+          cache-dependency-path: apps/api/go.sum
+
+      - name: 📦 Verify Go dependencies
+        run: |
+          cd apps/api
+          export GOTOOLCHAIN=local
+          go mod verify
+
+      - name: 🔍 Architecture & Code Lint (golangci-lint)
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.62.2
+          working-directory: apps/api
+          args: --timeout=5m
+
+      - name: 🏗️ Compile Backend Binaries
+        run: |
+          cd apps/api
+          export GOTOOLCHAIN=local
+          go build -v ./...
+
+      - name: 🧪 Unit & Race Tests
+        run: |
+          cd apps/api
+          export GOTOOLCHAIN=local
+          go test -v -race -cover ./...
+
+  # =========================================================================
+  # 2. Frontend Verification (Lint, Typecheck, OpenAPI sync, Build)
+  # =========================================================================
+  frontend-test:
+    name: 🌐 Frontend Lint, Typecheck & Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ⚡ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.4.2
+
+      - name: 🗄️ Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: 💾 Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: 📥 Install dependencies
+        run: |
+          cd apps/web
+          pnpm install --no-frozen-lockfile
+
+      - name: 📜 Verify OpenAPI Generated Types
+        run: |
+          cd apps/web
+          pnpm generate:api-types
+          git diff --exit-code lib/api/generated-types.ts || (echo "Generated API types are out of date! Run 'pnpm generate:api-types' and commit." && exit 1)
+
+      - name: 🔍 Run Linter (ESLint)
+        run: |
+          cd apps/web
+          pnpm lint
+
+      - name: 🛡️ Run Typecheck (TypeScript)
+        run: |
+          cd apps/web
+          pnpm typecheck
+
+      - name: 🏗️ Build Next.js Application
+        run: |
+          cd apps/web
+          pnpm build
+
+  # =========================================================================
+  # 3. Production Deployment (VPS: 176.53.174.118, dofamine.avari.dev)
+  # =========================================================================
+  deploy:
+    name: 🚀 Deploy to Production (dofamine.avari.dev)
+    needs: [backend-test, frontend-test]
+    if: >-
+      (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+      (github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    concurrency:
+      group: production-dofamine-deploy
+      cancel-in-progress: false
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔑 Configure SSH Key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST || '176.53.174.118' }}
+          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+        run: |
+          if [ -z "$SSH_PRIVATE_KEY" ]; then
+            echo "❌ Error: Secret SSH_PRIVATE_KEY is not defined in GitHub repository secrets."
+            exit 1
+          fi
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: 📦 Sync Repository & Deploy Docker Stack
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST || '176.53.174.118' }}
+          SSH_USER: ${{ secrets.SSH_USER || 'root' }}
+          SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+          DEPLOY_PATH: /opt/avari-dofamine
+        run: |
+          SSH_CMD="ssh -i ~/.ssh/id_deploy -p ${SSH_PORT} -o StrictHostKeyChecking=accept-new ${SSH_USER}@${SSH_HOST}"
+          RSYNC_CMD="rsync -avz --delete --exclude '.git' --exclude 'node_modules' --exclude '.next' --exclude 'bin' -e \"ssh -i ~/.ssh/id_deploy -p ${SSH_PORT} -o StrictHostKeyChecking=accept-new\""
+
+          echo "==> Preparing deploy directory on ${SSH_HOST}..."
+          $SSH_CMD "mkdir -p ${DEPLOY_PATH}"
+
+          echo "==> Syncing project files to ${DEPLOY_PATH}..."
+          eval $RSYNC_CMD ./ ${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}/
+
+          echo "==> Building and launching Docker Compose production stack..."
+          $SSH_CMD "cd ${DEPLOY_PATH} && docker compose -f deploy/docker-compose.prod.yml up -d --build --remove-orphans"
+
+          echo "==> Waiting for services to become healthy..."
+          sleep 10
+
+          echo "==> Running database migrations and catalog seed..."
+          $SSH_CMD "cd ${DEPLOY_PATH} && docker compose -f deploy/docker-compose.prod.yml run --rm migrator /app/migrator up || true"
+          $SSH_CMD "cd ${DEPLOY_PATH} && docker compose -f deploy/docker-compose.prod.yml run --rm migrator /app/seed catalog || true"
+
+          echo "==> Checking API health status..."
+          $SSH_CMD "curl -sf http://127.0.0.1:8080/healthz && echo '✅ API is healthy!'"
+
+          echo "==> Checking Frontend health status..."
+          $SSH_CMD "curl -sf http://127.0.0.1:8085/ > /dev/null && echo '✅ Frontend is responding on port 8085!'"
+
+          echo "==> Reloading OpenResty / Nginx if present..."
+          $SSH_CMD "(systemctl reload openresty 2>/dev/null || systemctl reload nginx 2>/dev/null || true)"
+
+          echo "🎉 Dofamine successfully deployed to https://dofamine.avari.dev !"
+
+      - name: 🧹 Cleanup SSH Credentials
+        if: always()
+        run: rm -rf ~/.ssh/id_deploy

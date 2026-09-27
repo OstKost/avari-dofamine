@@ -1,6 +1,6 @@
 # Архитектура и руководство: Быстрая и Социальная авторизация (Google, Apple, Yandex)
 
-В Dopamine Market реализована гибкая гибридная система авторизации, сочетающая:
+В Dofamine Market реализована гибкая гибридная система авторизации, сочетающая:
 1. **Zero-friction 1-Click Авторизацию (Google, Apple, Yandex)** — мгновенный вход в один клик без паролей и внешних зависимостей.
 2. **Классическую регистрацию и вход** — Email + пароль с Argon2 хэшированием (ADR-007).
 3. **Возможность бесшовного перехода на реальные внешние OAuth 2.0 провайдеры** в продакшене.
@@ -18,7 +18,7 @@
   - Генерирует JWT access-токен (15 мин) и opaque refresh-токен (30 дней) в Redis с поддержкой ротации и reuse detection (ADR-007).
   - Устанавливает безопасные `httpOnly`, `SameSite=Lax` куки.
 - Фронтенд автоматически вызывает `POST /cart/merge`, привязывая гостевую корзину (`X-Guest-ID`) к авторизованному пользователю.
-- Идентичность пользователя сохраняется в `localStorage` браузера (`dopamine_auth_google` и т.д.), гарантируя, что при повторном клике на "Google" пользователь всегда попадает в свой существующий профиль, сохраняя историю заказов, стрики геймификации и корзину.
+- Идентичность пользователя сохраняется в `localStorage` браузера (`dofamine_auth_google` и т.д.), гарантируя, что при повторном клике на "Google" пользователь всегда попадает в свой существующий профиль, сохраняя историю заказов, стрики геймификации и корзину.
 
 ---
 
@@ -98,11 +98,11 @@ DROP TABLE IF EXISTS identity.oauth_accounts;
 
 1. **Настройка в Apple Developer Portal**:
    - Создайте **App ID** и включите возможность **Sign in with Apple**.
-   - Создайте **Services ID** (например, `com.dopamine.market.auth`) и привяжите домен и Return URL: `https://your-domain.com/auth/oauth/apple/callback`.
+   - Создайте **Services ID** (например, `com.dofamine.market.auth`) и привяжите домен и Return URL: `https://your-domain.com/auth/oauth/apple/callback`.
    - Сгенерируйте приватный ключ **Sign in with Apple Key** (`.p8`), запишите `Key ID` и `Team ID`.
 2. **Переменные окружения (`.env`)**:
    ```env
-   APPLE_CLIENT_ID=com.dopamine.market.auth
+   APPLE_CLIENT_ID=com.dofamine.market.auth
    APPLE_TEAM_ID=XXXXXXXXXX
    APPLE_KEY_ID=XXXXXXXXXX
    APPLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"

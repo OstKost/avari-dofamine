@@ -45,7 +45,7 @@ interface SuperCategory {
 
 const SUPER_CATEGORIES: SuperCategory[] = [
   { id: "all", label: "✨ Все товары", icon: "✨", slugPrefixes: [] },
-  { id: "dopamine", label: "🎪 Допаминовая лавка", icon: "🎪", slugPrefixes: ["dopamine-"] },
+  { id: "dofamine", label: "🎪 Допаминовая лавка", icon: "🎪", slugPrefixes: ["dofamine-"] },
   { id: "electronics", label: "⚡ Электроника", icon: "⚡", slugPrefixes: ["electronics-"] },
   { id: "computers", label: "💻 Компьютеры & Железо", icon: "💻", slugPrefixes: ["hardware-", "computers-"] },
   { id: "brands", label: "👑 Бренды & Премиум", icon: "👑", slugPrefixes: ["luxury-", "brands-"] },

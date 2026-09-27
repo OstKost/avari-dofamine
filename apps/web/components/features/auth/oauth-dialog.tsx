@@ -32,7 +32,7 @@ export function OAuthDialog({
       case "google":
         return {
           title: "Вход с помощью Google",
-          subtitle: "Выберите аккаунт для перехода в Dopamine Market",
+          subtitle: "Выберите аккаунт для перехода в Dofamine Market",
           brandColor: "from-blue-600 to-indigo-600",
           logo: (
             <svg className="h-6 w-6" viewBox="0 0 24 24">
@@ -44,14 +44,14 @@ export function OAuthDialog({
           ),
           defaultAccounts: [
             { name: "Алексей Смирнов", email: "alex.smirnov@gmail.com", avatarBg: "bg-blue-500" },
-            { name: "Dopamine Tester", email: "tester.dopamine@gmail.com", avatarBg: "bg-emerald-500" },
+            { name: "Dofamine Tester", email: "tester.dofamine@gmail.com", avatarBg: "bg-emerald-500" },
           ],
           defaultDomain: "@gmail.com",
         };
       case "yandex":
         return {
           title: "Яндекс ID",
-          subtitle: "Разрешить доступ приложению Dopamine Market",
+          subtitle: "Разрешить доступ приложению Dofamine Market",
           brandColor: "from-red-600 to-amber-600",
           logo: (
             <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#FC3F1D] text-white font-black text-xs">

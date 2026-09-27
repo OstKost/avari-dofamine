@@ -18,13 +18,13 @@ import { HeroParallax } from "@/components/features/home/HeroParallax";
 
 const SUPER_CATEGORIES = [
   {
-    id: "dopamine",
+    id: "dofamine",
     title: "Допаминовая лавка",
     icon: "🎪",
     lucideIcon: Gift,
     badge: "Хит предвкушения",
     description: "Секретные боксы, антистресс, артефакты радости и чистый концентрированный эндорфин.",
-    href: "/catalog?super=dopamine",
+    href: "/catalog?super=dofamine",
     gradient: "from-[#F2B84B]/20 via-[#FFD37A]/10 to-transparent",
     borderGlow: "hover:border-amber-400/60 hover:shadow-glow-amber",
     accentColor: "text-amber-400",

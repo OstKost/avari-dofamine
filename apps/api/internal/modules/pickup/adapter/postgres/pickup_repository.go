@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/ostkost/dopamine-market/api/internal/modules/pickup/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/pickup/domain"
 )
 
 type PickupRepository struct {

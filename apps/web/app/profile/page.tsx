@@ -87,14 +87,14 @@ const INITIAL_ACHIEVEMENTS: Achievement[] = [
   {
     id: "big-basket",
     title: "Полная корзина",
-    description: "Соберите корзину из 10+ товаров и примените промокод DOPAMINE",
+    description: "Соберите корзину из 10+ товаров и примените промокод DOFAMINE",
     xp_reward: 100,
     is_unlocked: false,
     progress: 4,
     max_progress: 10,
   },
   {
-    id: "dopamine-overload",
+    id: "dofamine-overload",
     title: "Дофаминовый взрыв",
     description: "Достигните 10-го уровня профиля и накопите 2500 XP",
     xp_reward: 500,
@@ -195,7 +195,7 @@ export default function ProfilePage() {
                 {user.nickname || user.email}
               </h1>
               <p className="text-xs text-[#9FB3C4]">
-                {user.nickname ? `${user.email} · ` : ""}В Avari Dopamine с {new Date(user.created_at).toLocaleDateString("ru-RU")}
+                {user.nickname ? `${user.email} · ` : ""}В Avari Dofamine с {new Date(user.created_at).toLocaleDateString("ru-RU")}
               </p>
               <div className="flex items-center gap-2 pt-1">
                 <div className="h-2 w-32 rounded-full bg-[#0E1B29] border border-[#1E3A50] overflow-hidden">

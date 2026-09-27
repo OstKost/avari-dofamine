@@ -9,8 +9,8 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
-	"github.com/ostkost/dopamine-market/api/internal/platform/db"
-	"github.com/ostkost/dopamine-market/api/internal/platform/kafka"
+	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/dofamine/api/internal/platform/kafka"
 )
 
 // Event представляет outbox-событие для гарантированной публикации в Kafka (ADR-003).

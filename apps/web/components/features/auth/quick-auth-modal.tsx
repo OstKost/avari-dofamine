@@ -218,7 +218,7 @@ export function QuickAuthModal({ isOpen, onClose, onSuccess }: QuickAuthModalPro
                 type="text"
                 value={nickname}
                 onChange={(e) => setNickname(e.target.value)}
-                placeholder="CyberDopamine / Алекс"
+                placeholder="CyberDofamine / Алекс"
                 className="w-full px-4 py-2.5 text-xs sm:text-sm rounded-xl bg-[#050B14] border border-[#1E3A50] text-[#F4F1E8] placeholder:text-[#5E7488] focus:border-teal-400 focus:outline-none transition-colors"
               />
             </div>

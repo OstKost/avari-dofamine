@@ -54,7 +54,7 @@ export default function RegisterPage() {
     setIsLoading(true);
     try {
       if (typeof window !== "undefined") {
-        localStorage.setItem(`dopamine_auth_${provider}`, JSON.stringify({ email, nickname }));
+        localStorage.setItem(`dofamine_auth_${provider}`, JSON.stringify({ email, nickname }));
       }
 
       await apiFetch("/auth/quick-login", {

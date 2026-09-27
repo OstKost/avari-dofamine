@@ -1,0 +1,188 @@
+# deploy/docker-compose.prod.yml — Production стек сервисов для Dofamine Market
+# Развертывание на VPS (176.53.174.118, домен dofamine.avari.dev)
+
+name: dofamine-market
+
+networks:
+  dofamine-net:
+    driver: bridge
+
+volumes:
+  postgres-data:
+  redis-data:
+  kafka-data:
+
+services:
+  # ---------------------------------------------------------------------
+  # 1. PostgreSQL Хранилище
+  # ---------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: df-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-dofamine}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dofamine_secret_prod_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-dofamine_market}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - dofamine-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dofamine}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------
+  # 2. Redis Кэш и Сессии
+  # ---------------------------------------------------------------------
+  redis:
+    image: redis:alpine
+    container_name: df-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:-dofamine_secret_prod_2026}"]
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - dofamine-net
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD:-dofamine_secret_prod_2026} ping | grep -q PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------
+  # 3. Kafka (KRaft режим)
+  # ---------------------------------------------------------------------
+  kafka:
+    image: apache/kafka:latest
+    container_name: df-kafka
+    restart: unless-stopped
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 3
+    ports:
+      - "127.0.0.1:9092:9092"
+    volumes:
+      - kafka-data:/tmp/kraft-combined-logs
+    networks:
+      - dofamine-net
+
+  # ---------------------------------------------------------------------
+  # 4. Database Migrations
+  # ---------------------------------------------------------------------
+  migrator:
+    build:
+      context: ../apps/api
+      dockerfile: Dockerfile
+    container_name: df-migrator
+    restart: "no"
+    command: ["/app/migrator", "up"]
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-dofamine}:${POSTGRES_PASSWORD:-dofamine_secret_prod_2026}@postgres:5432/${POSTGRES_DB:-dofamine_market}?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - dofamine-net
+
+  # ---------------------------------------------------------------------
+  # 5. Go HTTP API Server
+  # ---------------------------------------------------------------------
+  api:
+    build:
+      context: ../apps/api
+      dockerfile: Dockerfile
+    container_name: df-api
+    restart: unless-stopped
+    command: ["/app/server"]
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      ENV: production
+      PORT: 8080
+      DATABASE_URL: postgres://${POSTGRES_USER:-dofamine}:${POSTGRES_PASSWORD:-dofamine_secret_prod_2026}@postgres:5432/${POSTGRES_DB:-dofamine_market}?sslmode=disable
+      REDIS_ADDR: redis:6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-dofamine_secret_prod_2026}
+      KAFKA_BROKERS: kafka:9092
+      AUTH_JWT_SECRET: ${AUTH_JWT_SECRET:-dofamine-secret-jwt-key-prod-super-secure-32chars}
+      PAYMENT_PROVIDER: ${PAYMENT_PROVIDER:-mock}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+    networks:
+      - dofamine-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://127.0.0.1:8080/healthz || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  # ---------------------------------------------------------------------
+  # 6. Go Background Worker (Outbox relay & Delivery scheduler)
+  # ---------------------------------------------------------------------
+  worker:
+    build:
+      context: ../apps/api
+      dockerfile: Dockerfile
+    container_name: df-worker
+    restart: unless-stopped
+    command: ["/app/worker"]
+    environment:
+      ENV: production
+      DATABASE_URL: postgres://${POSTGRES_USER:-dofamine}:${POSTGRES_PASSWORD:-dofamine_secret_prod_2026}@postgres:5432/${POSTGRES_DB:-dofamine_market}?sslmode=disable
+      REDIS_ADDR: redis:6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-dofamine_secret_prod_2026}
+      KAFKA_BROKERS: kafka:9092
+      AUTH_JWT_SECRET: ${AUTH_JWT_SECRET:-dofamine-secret-jwt-key-prod-super-secure-32chars}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      migrator:
+        condition: service_completed_successfully
+    networks:
+      - dofamine-net
+
+  # ---------------------------------------------------------------------
+  # 7. Next.js Frontend (OpenResty Proxy target -> Port 8085)
+  # ---------------------------------------------------------------------
+  web:
+    build:
+      context: ../apps/web
+      dockerfile: Dockerfile
+    container_name: df-web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8085:8085"
+    environment:
+      NODE_ENV: production
+      PORT: 8085
+      INTERNAL_API_URL: http://api:8080
+      NEXT_PUBLIC_API_URL: ""
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - dofamine-net

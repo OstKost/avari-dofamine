@@ -9,12 +9,12 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
-	"github.com/ostkost/dopamine-market/api/internal/modules/delivery/domain"
-	"github.com/ostkost/dopamine-market/api/internal/modules/delivery/port"
-	"github.com/ostkost/dopamine-market/api/internal/platform/db"
-	"github.com/ostkost/dopamine-market/api/internal/platform/outbox"
-	"github.com/ostkost/dopamine-market/api/internal/platform/random"
-	"github.com/ostkost/dopamine-market/api/internal/platform/scheduler"
+	"github.com/ostkost/dofamine/api/internal/modules/delivery/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/delivery/port"
+	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/dofamine/api/internal/platform/outbox"
+	"github.com/ostkost/dofamine/api/internal/platform/random"
+	"github.com/ostkost/dofamine/api/internal/platform/scheduler"
 )
 
 var defaultCourierNames = []string{
@@ -153,7 +153,7 @@ func (uc *DeliveryUseCase) StartDelivery(ctx context.Context, orderID uuid.UUID)
 			EstimatedCompletionAt: del.EstimatedCompletionAt,
 		}
 
-		evt, err := outbox.NewEvent("dopamine.events", del.OrderID.String(), "delivery.status_changed.v1", eventPayload)
+		evt, err := outbox.NewEvent("dofamine.events", del.OrderID.String(), "delivery.status_changed.v1", eventPayload)
 		if err != nil {
 			return fmt.Errorf("creating outbox event: %w", err)
 		}
@@ -225,7 +225,7 @@ func (uc *DeliveryUseCase) AdvanceDeliveryState(ctx context.Context, deliveryID 
 
 		case domain.StatusDelivered:
 			// Финальное событие завершения доставки
-			completedEvt, err := outbox.NewEvent("dopamine.events", del.OrderID.String(), "delivery.completed.v1", DeliveryStatusPayload{
+			completedEvt, err := outbox.NewEvent("dofamine.events", del.OrderID.String(), "delivery.completed.v1", DeliveryStatusPayload{
 				DeliveryID:            del.ID,
 				OrderID:               del.OrderID,
 				Status:                string(del.Status),
@@ -242,7 +242,7 @@ func (uc *DeliveryUseCase) AdvanceDeliveryState(ctx context.Context, deliveryID 
 		}
 
 		// Публикуем событие изменения статуса для всех переходов
-		statusEvt, err := outbox.NewEvent("dopamine.events", del.OrderID.String(), "delivery.status_changed.v1", DeliveryStatusPayload{
+		statusEvt, err := outbox.NewEvent("dofamine.events", del.OrderID.String(), "delivery.status_changed.v1", DeliveryStatusPayload{
 			DeliveryID:            del.ID,
 			OrderID:               del.OrderID,
 			Status:                string(del.Status),

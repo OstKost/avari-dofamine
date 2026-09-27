@@ -45,7 +45,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem("dopamine_currency") as Currency | null;
+      const saved = localStorage.getItem("dofamine_currency") as Currency | null;
       if (saved === "RUB" || saved === "USD") {
         setCurrencyState(saved);
       }
@@ -57,7 +57,7 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
   const setCurrency = (c: Currency) => {
     setCurrencyState(c);
     try {
-      localStorage.setItem("dopamine_currency", c);
+      localStorage.setItem("dofamine_currency", c);
     } catch {
       // Ignore
     }

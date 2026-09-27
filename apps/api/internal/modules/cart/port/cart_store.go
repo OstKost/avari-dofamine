@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/cart/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/cart/domain"
 )
 
 type CartStore interface {

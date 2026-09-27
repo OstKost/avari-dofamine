@@ -12,7 +12,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/ostkost/dopamine-market/api/internal/platform/redis"
+	"github.com/ostkost/dofamine/api/internal/platform/redis"
 )
 
 func TestNew_ConnectsAndHealthChecks(t *testing.T) {

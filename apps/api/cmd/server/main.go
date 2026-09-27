@@ -14,26 +14,26 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
-	"github.com/ostkost/dopamine-market/api/internal/modules/cart"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog"
-	"github.com/ostkost/dopamine-market/api/internal/modules/delivery"
-	deliveryuc "github.com/ostkost/dopamine-market/api/internal/modules/delivery/usecase"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity"
-	"github.com/ostkost/dopamine-market/api/internal/modules/notification"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order"
-	"github.com/ostkost/dopamine-market/api/internal/modules/payment"
-	"github.com/ostkost/dopamine-market/api/internal/modules/pickup"
-	"github.com/ostkost/dopamine-market/api/internal/platform/config"
-	"github.com/ostkost/dopamine-market/api/internal/platform/db"
-	"github.com/ostkost/dopamine-market/api/internal/platform/httpserver"
-	"github.com/ostkost/dopamine-market/api/internal/platform/kafka"
-	"github.com/ostkost/dopamine-market/api/internal/platform/logger"
-	"github.com/ostkost/dopamine-market/api/internal/platform/metrics"
-	"github.com/ostkost/dopamine-market/api/internal/platform/pubsub"
-	"github.com/ostkost/dopamine-market/api/internal/platform/random"
-	"github.com/ostkost/dopamine-market/api/internal/platform/ratelimit"
-	"github.com/ostkost/dopamine-market/api/internal/platform/redis"
-	"github.com/ostkost/dopamine-market/api/internal/platform/tracing"
+	"github.com/ostkost/dofamine/api/internal/modules/cart"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog"
+	"github.com/ostkost/dofamine/api/internal/modules/delivery"
+	deliveryuc "github.com/ostkost/dofamine/api/internal/modules/delivery/usecase"
+	"github.com/ostkost/dofamine/api/internal/modules/identity"
+	"github.com/ostkost/dofamine/api/internal/modules/notification"
+	"github.com/ostkost/dofamine/api/internal/modules/order"
+	"github.com/ostkost/dofamine/api/internal/modules/payment"
+	"github.com/ostkost/dofamine/api/internal/modules/pickup"
+	"github.com/ostkost/dofamine/api/internal/platform/config"
+	"github.com/ostkost/dofamine/api/internal/platform/db"
+	"github.com/ostkost/dofamine/api/internal/platform/httpserver"
+	"github.com/ostkost/dofamine/api/internal/platform/kafka"
+	"github.com/ostkost/dofamine/api/internal/platform/logger"
+	"github.com/ostkost/dofamine/api/internal/platform/metrics"
+	"github.com/ostkost/dofamine/api/internal/platform/pubsub"
+	"github.com/ostkost/dofamine/api/internal/platform/random"
+	"github.com/ostkost/dofamine/api/internal/platform/ratelimit"
+	"github.com/ostkost/dofamine/api/internal/platform/redis"
+	"github.com/ostkost/dofamine/api/internal/platform/tracing"
 )
 
 func main() {
@@ -64,7 +64,7 @@ func run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer stop()
 
-	log.Info("starting dopamine-market api", slog.String("env", cfg.Env))
+	log.Info("starting dofamine-market api", slog.String("env", cfg.Env))
 
 	dbPool, err := db.New(ctx, db.Config{
 		DSN:             cfg.DB.DSN,
@@ -130,8 +130,8 @@ func run() error {
 	// Запуск Kafka consumer для notification-сервиса (трансляция событий в SSE Hub)
 	if len(cfg.Kafka.Brokers) > 0 {
 		notifConsumer := kafka.NewConsumer(
-			kafka.Config{Brokers: cfg.Kafka.Brokers, ClientID: "dopamine-api-notification-consumer"},
-			"dopamine.events",
+			kafka.Config{Brokers: cfg.Kafka.Brokers, ClientID: "dofamine-api-notification-consumer"},
+			"dofamine.events",
 			"notification-service-group",
 		)
 		defer func() {

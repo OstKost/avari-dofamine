@@ -158,7 +158,7 @@ export function OrderTrackingView({ initialOrder }: OrderTrackingViewProps) {
               Понравилась симуляция и моментальный дофамин?
             </h3>
             <p className="text-xs sm:text-sm text-[#9FB3C4] leading-relaxed">
-              Dopamine Market — независимый проект с бесплатными синтетическими заказами. Поддержите автора на Boosty для выпуска новых фич и дропов!
+              Dofamine Market — независимый проект с бесплатными синтетическими заказами. Поддержите автора на Boosty для выпуска новых фич и дропов!
             </p>
           </div>
 

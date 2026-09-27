@@ -12,7 +12,7 @@ const config: Config = {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        // Avari Dopamine Design System Tokens
+        // Avari Dofamine Design System Tokens
         "bg-base": "#050B14",
         "bg-surface": "#0B1622",
         "bg-elevated": "#122234",

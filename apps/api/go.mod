@@ -1,4 +1,4 @@
-module github.com/ostkost/dopamine-market/api
+module github.com/ostkost/dofamine/api
 
 go 1.23.4
 

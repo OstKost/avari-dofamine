@@ -51,7 +51,7 @@ export function Header() {
           <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-[#0B1622] border border-[#1E3A50] shadow-sm shadow-amber-500/10 group-hover:scale-105 group-hover:border-amber-400/50 transition-all overflow-hidden p-1">
             <Image
               src="/logo-detailed.png"
-              alt="Avari Dopamine Logo"
+              alt="Avari Dofamine Logo"
               width={36}
               height={36}
               className="object-contain"
@@ -64,7 +64,7 @@ export function Header() {
                 Avari
               </span>
               <span className="text-base sm:text-lg font-black tracking-tight bg-gradient-to-r from-[#F2B84B] to-[#FFD37A] bg-clip-text text-transparent">
-                Dopamine
+                Dofamine
               </span>
             </div>
             <span className="text-[10px] font-semibold text-[#9FB3C4] block -mt-1 tracking-wider uppercase">

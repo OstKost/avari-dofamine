@@ -8,12 +8,12 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/ostkost/dopamine-market/api/internal/contracts"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity/adapter/argon2"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity/adapter/httpapi"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity/adapter/postgres"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity/adapter/redis"
-	"github.com/ostkost/dopamine-market/api/internal/modules/identity/usecase"
+	"github.com/ostkost/dofamine/api/internal/contracts"
+	"github.com/ostkost/dofamine/api/internal/modules/identity/adapter/argon2"
+	"github.com/ostkost/dofamine/api/internal/modules/identity/adapter/httpapi"
+	"github.com/ostkost/dofamine/api/internal/modules/identity/adapter/postgres"
+	"github.com/ostkost/dofamine/api/internal/modules/identity/adapter/redis"
+	"github.com/ostkost/dofamine/api/internal/modules/identity/usecase"
 	redisClient "github.com/redis/go-redis/v9"
 )
 

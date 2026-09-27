@@ -28,7 +28,7 @@ scope:
 
 ## Задачи
 
-1. Инициализировать Go-модуль `apps/api` (`go mod init github.com/{org}/dopamine-market/api`), базовая структура директорий согласно ADR-001/ADR-004 (`cmd/server`, `cmd/worker`, `cmd/seed`, `cmd/migrator`, `internal/platform`, `internal/contracts`, `internal/modules` — пустой, модули создаются в своих Epics).
+1. Инициализировать Go-модуль `apps/api` (`go mod init github.com/{org}/dofamine-market/api`), базовая структура директорий согласно ADR-001/ADR-004 (`cmd/server`, `cmd/worker`, `cmd/seed`, `cmd/migrator`, `internal/platform`, `internal/contracts`, `internal/modules` — пустой, модули создаются в своих Epics).
 2. `internal/platform/config`: загрузка конфигурации из env (через `envconfig` или ручной парсинг), fail-fast валидация обязательных переменных при старте.
 3. `internal/platform/db`: пул подключений к Postgres (`pgxpool`), health-check метод, обёртка транзакций (`WithTx(ctx, fn) error`) с поддержкой вложенных вызовов через `context`.
 4. `internal/platform/kafka`: обёртка producer/consumer над `segmentio/kafka-go` или `confluent-kafka-go` — выбрать одну библиотеку и задокументировать выбор в комментарии (segmentio/kafka-go рекомендуется — pure Go, не требует cgo/librdkafka, проще для CI и Docker образов).

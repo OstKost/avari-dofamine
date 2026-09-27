@@ -1,5 +1,5 @@
 # =====================================================================
-# Avari Dopamine (Dopamine Market) — Root Makefile
+# Avari Dofamine (Dofamine Market) — Root Makefile
 # =====================================================================
 # Единая точка входа для сборки, тестирования, линтинга,
 # локальной разработки (dev) и запуска в продакшене (prod).
@@ -27,7 +27,7 @@ endif
 # ---------------------------------------------------------------------
 help: ## Показать справку по доступным командам
 	@echo ""
-	@echo "Avari Dopamine (Dopamine Market) — Команды управления проектом:"
+	@echo "Avari Dofamine (Dofamine Market) — Команды управления проектом:"
 	@echo ""
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 	@echo ""
@@ -36,7 +36,7 @@ help: ## Показать справку по доступным команда�
 # Development Targets
 # ---------------------------------------------------------------------
 dev: ## Запустить API сервер, Worker и Frontend одновременно в dev-режиме
-	@echo "Запуск Avari Dopamine в dev-режиме (API + Worker + Web)..."
+	@echo "Запуск Avari Dofamine в dev-режиме (API + Worker + Web)..."
 	@trap 'kill 0' SIGINT SIGTERM EXIT; \
 	(cd apps/api && go run ./cmd/server) & \
 	(cd apps/api && go run ./cmd/worker) & \
@@ -77,7 +77,7 @@ build-web: ## Собрать оптимизированный production бил�
 prod-build: build ## Подготовить production сборку бэкенда и фронтенда
 
 prod-start: ## Запустить production сборку (API server, Worker и Next.js production)
-	@echo "Запуск Avari Dopamine в production режиме..."
+	@echo "Запуск Avari Dofamine в production режиме..."
 	@trap 'kill 0' SIGINT SIGTERM EXIT; \
 	./apps/api/bin/server & \
 	./apps/api/bin/worker & \

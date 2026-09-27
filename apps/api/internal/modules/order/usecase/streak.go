@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/ostkost/dopamine-market/api/internal/modules/order/domain"
+	"github.com/ostkost/dofamine/api/internal/modules/order/domain"
 )
 
 type UserStats struct {

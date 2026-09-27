@@ -7,11 +7,11 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/ostkost/dopamine-market/api/internal/contracts"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/adapter/httpapi"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/adapter/postgres"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/port"
-	"github.com/ostkost/dopamine-market/api/internal/modules/catalog/usecase"
+	"github.com/ostkost/dofamine/api/internal/contracts"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/adapter/httpapi"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/adapter/postgres"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/port"
+	"github.com/ostkost/dofamine/api/internal/modules/catalog/usecase"
 )
 
 type Module struct {
