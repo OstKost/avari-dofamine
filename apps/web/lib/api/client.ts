@@ -2,7 +2,12 @@ import type { paths } from "./generated-types";
 
 export type ApiPaths = paths;
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+export function getBaseUrl(): string {
+  if (typeof window === "undefined") {
+    return process.env.INTERNAL_API_URL || "http://api:8080";
+  }
+  return process.env.NEXT_PUBLIC_API_URL || "/api";
+}
 
 export interface RequestOptions extends Omit<RequestInit, "body"> {
   params?: {
@@ -72,7 +77,9 @@ export function getOrCreateGuestId(): string {
 }
 
 export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
-  let url = `${API_BASE_URL}${endpoint}`;
+  const baseUrl = getBaseUrl();
+  const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+  let url = `${baseUrl}${cleanEndpoint}`;
 
   if (options.params?.path) {
     for (const [key, value] of Object.entries(options.params.path)) {
