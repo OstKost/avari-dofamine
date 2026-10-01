@@ -121,6 +121,9 @@ jobs:
           pnpm typecheck
 
       - name: 🏗️ Build Next.js Application
+        env:
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL || 'https://dofamine.avari.dev' }}
+          NEXT_PUBLIC_YM_ID: ${{ secrets.NEXT_PUBLIC_YM_ID || '113253982' }}
         run: |
           cd apps/web
           pnpm build
@@ -163,6 +166,8 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST || '176.53.174.118' }}
           SSH_USER: ${{ secrets.SSH_USER || 'root' }}
           SSH_PORT: ${{ secrets.SSH_PORT || '22' }}
+          NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL || 'https://dofamine.avari.dev' }}
+          NEXT_PUBLIC_YM_ID: ${{ secrets.NEXT_PUBLIC_YM_ID || '113253982' }}
           DEPLOY_PATH: /opt/avari-dofamine
         run: |
           SSH_CMD="ssh -i ~/.ssh/id_deploy -p ${SSH_PORT} -o StrictHostKeyChecking=accept-new ${SSH_USER}@${SSH_HOST}"
@@ -175,7 +180,7 @@ jobs:
           eval $RSYNC_CMD ./ ${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}/
 
           echo "==> Building and launching Docker Compose production stack..."
-          $SSH_CMD "cd ${DEPLOY_PATH} && docker compose -f deploy/docker-compose.prod.yml up -d --build --remove-orphans"
+          $SSH_CMD "cd ${DEPLOY_PATH} && NEXT_PUBLIC_SITE_URL='${NEXT_PUBLIC_SITE_URL}' NEXT_PUBLIC_YM_ID='${NEXT_PUBLIC_YM_ID}' docker compose -f deploy/docker-compose.prod.yml up -d --build --remove-orphans"
 
           echo "==> Waiting for services to become healthy..."
           sleep 10

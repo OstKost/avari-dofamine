@@ -3,10 +3,20 @@ import { Package, ArrowRight, Clock, MapPin, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import type { Metadata } from "next";
 import { apiFetch } from "@/lib/api/client";
 import { formatPrice } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "Мои заказы | Avari Dofamine",
+  description: "История ваших дофаминовых заказов и статус доставки в реальном времени.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 interface OrderItem {
   product_id: string;

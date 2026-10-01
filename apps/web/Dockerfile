@@ -16,6 +16,14 @@ RUN corepack enable && corepack prepare pnpm@12.4.2 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+ARG NEXT_PUBLIC_SITE_URL=https://dofamine.avari.dev
+ARG NEXT_PUBLIC_YM_ID=113253982
+ARG NEXT_PUBLIC_API_URL=""
+
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_YM_ID=$NEXT_PUBLIC_YM_ID
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 

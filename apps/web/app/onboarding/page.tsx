@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { apiFetch, isUnauthorizedError } from "@/lib/api/client";
+import { trackPickupSelect } from "@/lib/analytics/tracker";
+import { LocalPickupPointJsonLd } from "@/components/seo/JsonLd";
 
 interface PickupPoint {
   id: string;
@@ -85,6 +87,11 @@ export default function OnboardingPage() {
 
   const handleSavePickupPoint = async () => {
     if (!selectedPointId) return;
+
+    const chosen = points.find((p) => p.id === selectedPointId);
+    if (chosen) {
+      trackPickupSelect(chosen.id, chosen.name, chosen.distance_meters);
+    }
 
     setIsSaving(true);
     try {

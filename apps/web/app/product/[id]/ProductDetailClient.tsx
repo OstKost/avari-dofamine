@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Sparkles, ShieldCheck, Zap, ShoppingBag, Check } from "lucide-react";
@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { apiFetch, isUnauthorizedError } from "@/lib/api/client";
 import { useCurrency } from "@/lib/context/currency-context";
 import { getProductImageUrl } from "@/lib/utils/product-image";
+import { trackProductView, trackAddToCart } from "@/lib/analytics/tracker";
 
 interface Product {
   id: string;
@@ -29,6 +30,15 @@ export function ProductDetailClient({ product }: { product: Product }) {
 
   const imageUrl = getProductImageUrl(product.image_seed || product.id, product.name, product.category_name);
 
+  useEffect(() => {
+    trackProductView({
+      item_id: product.id,
+      item_name: product.name,
+      price: product.price_rub,
+      item_category: product.category_name,
+    });
+  }, [product]);
+
   const handleAddToCart = async () => {
     setIsAdding(true);
     try {
@@ -39,6 +49,16 @@ export function ProductDetailClient({ product }: { product: Product }) {
           quantity: 1,
         },
       });
+
+      trackAddToCart(
+        {
+          item_id: product.id,
+          item_name: product.name,
+          price: product.price_rub,
+          item_category: product.category_name,
+        },
+        1
+      );
 
       setIsAdded(true);
       setTimeout(() => setIsAdded(false), 2500);

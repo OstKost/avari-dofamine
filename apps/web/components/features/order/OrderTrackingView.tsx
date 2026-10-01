@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
@@ -23,6 +23,7 @@ import { DeliveryDelayedBanner } from "./DeliveryDelayedBanner";
 import { CelebrationConfetti } from "./CelebrationConfetti";
 import { useCurrency } from "@/lib/context/currency-context";
 import { apiFetch } from "@/lib/api/client";
+import { trackPurchase, trackGamificationEvent } from "@/lib/analytics/tracker";
 
 interface OrderItem {
   product_id: string;
@@ -65,6 +66,30 @@ export function OrderTrackingView({ initialOrder }: OrderTrackingViewProps) {
     initialOrder.courier,
     initialOrder.estimated_completion_at,
   );
+
+  useEffect(() => {
+    trackPurchase({
+      transaction_id: initialOrder.id,
+      value: 10.0,
+      currency: "RUB",
+      items: initialOrder.items.map((i) => ({
+        item_id: i.product_id,
+        item_name: i.name,
+        price: i.price_rub,
+        quantity: i.quantity,
+        item_category: i.category_name,
+      })),
+    });
+  }, [initialOrder]);
+
+  useEffect(() => {
+    if (liveState.status === "delivered") {
+      trackGamificationEvent("streak_maintained", {
+        order_id: initialOrder.id,
+        xp_earned: 15,
+      });
+    }
+  }, [liveState.status, initialOrder.id]);
 
   const handleRepeatOrder = async () => {
     setIsRepeating(true);

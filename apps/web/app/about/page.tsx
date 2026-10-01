@@ -1,11 +1,17 @@
 import Link from "next/link";
 import { Sparkles, ArrowRight, ShieldCheck, Zap, CheckCircle2, Package, Gift, HelpCircle } from "lucide-react";
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export const metadata = {
-  title: "О проекте и правила | Avari Dofamine",
-  description: "Концепция сервиса мгновенного удовольствия и предвкушения. Как работает Dofamine Market и правила покупок.",
+export const metadata: Metadata = {
+  title: "О проекте и правила сервиса | Avari Dofamine",
+  description: "Концепция сервиса мгновенного удовольствия и предвкушения. Как работает Dofamine Market, симуляция доставки и правила покупок.",
+  openGraph: {
+    title: "О проекте Avari Dofamine — Маркетплейс мгновенного дофамина",
+    description: "Концепция сервиса мгновенного удовольствия и предвкушения. Бесплатные синтетические заказы и доставка 100-500м.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function AboutPage() {

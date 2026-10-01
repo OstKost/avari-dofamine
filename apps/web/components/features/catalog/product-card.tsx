@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { apiFetch, isUnauthorizedError } from "@/lib/api/client";
 import { getProductImageUrl } from "@/lib/utils/product-image";
 import { useCurrency } from "@/lib/context/currency-context";
+import { trackAddToCart } from "@/lib/analytics/tracker";
 
 export interface ProductCardProps {
   id: string;
@@ -44,6 +45,16 @@ export function ProductCard({
           quantity: 1,
         },
       });
+
+      trackAddToCart(
+        {
+          item_id: id,
+          item_name: name,
+          price: priceRub,
+          item_category: categoryName,
+        },
+        1
+      );
 
       setIsAdded(true);
       setTimeout(() => setIsAdded(false), 2000);

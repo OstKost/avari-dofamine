@@ -1,9 +1,10 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useTransition, useState, useEffect } from "react";
+import { useTransition, useState, useEffect, useRef } from "react";
 import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { trackSearch } from "@/lib/analytics/tracker";
 
 export function SearchBar() {
   const router = useRouter();
@@ -13,6 +14,7 @@ export function SearchBar() {
 
   const [query, setQuery] = useState(initialQuery);
   const [, startTransition] = useTransition();
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setQuery(initialQuery);
@@ -20,6 +22,16 @@ export function SearchBar() {
 
   const handleSearch = (term: string) => {
     setQuery(term);
+
+    if (searchTimeoutRef.current) {
+      clearTimeout(searchTimeoutRef.current);
+    }
+
+    if (term.trim().length >= 2) {
+      searchTimeoutRef.current = setTimeout(() => {
+        trackSearch(term.trim());
+      }, 800);
+    }
 
     startTransition(() => {
       const params = new URLSearchParams(searchParams.toString());

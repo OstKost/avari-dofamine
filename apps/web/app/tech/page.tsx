@@ -13,13 +13,19 @@ import {
   Lock,
   Compass
 } from "lucide-react";
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Архитектура и стек | Avari Dofamine (For Recruiters & Tech Leads)",
   description: "Технический разбор архитектуры Dofamine Market: Modular Monolith, Clean Architecture, Transactional Outbox, SSE, Go + Next.js 15.",
+  openGraph: {
+    title: "Архитектура и стек Avari Dofamine",
+    description: "Разбор архитектуры модульного монолита на Go 1.23, Next.js 15, Transactional Outbox, Kafka и Postgres.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function TechPage() {

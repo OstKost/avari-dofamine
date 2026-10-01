@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Вход и регистрация | Avari Dofamine",
+  description: "Авторизация в личном кабинете Avari Dofamine. Сохранение истории заказов, стриков и достижений.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function AuthLayout({
   children,

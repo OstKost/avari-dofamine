@@ -172,6 +172,10 @@ services:
     build:
       context: ../apps/web
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://dofamine.avari.dev}
+        NEXT_PUBLIC_YM_ID: ${NEXT_PUBLIC_YM_ID:-113253982}
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-""}
     container_name: df-web
     restart: unless-stopped
     ports:
@@ -181,6 +185,8 @@ services:
       PORT: 8085
       INTERNAL_API_URL: http://api:8080
       NEXT_PUBLIC_API_URL: ""
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-https://dofamine.avari.dev}
+      NEXT_PUBLIC_YM_ID: ${NEXT_PUBLIC_YM_ID:-113253982}
     depends_on:
       api:
         condition: service_healthy

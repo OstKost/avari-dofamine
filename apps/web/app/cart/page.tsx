@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { apiFetch, isUnauthorizedError } from "@/lib/api/client";
 import { useCurrency } from "@/lib/context/currency-context";
 import { getProductImageUrl } from "@/lib/utils/product-image";
+import { trackRemoveFromCart, trackBeginCheckout } from "@/lib/analytics/tracker";
 
 import { QuickAuthModal } from "@/components/features/auth/quick-auth-modal";
 
@@ -176,11 +177,22 @@ export default function CartPage() {
   };
 
   const handleRemoveItem = async (productId: string) => {
+    const itemToRemove = cart?.items.find((i) => i.product_id === productId);
     setIsUpdating(true);
     try {
       const updated = await apiFetch<Cart>(`/cart/items/${productId}`, {
         method: "DELETE",
       });
+      if (itemToRemove) {
+        trackRemoveFromCart(
+          {
+            item_id: itemToRemove.product_id,
+            item_name: itemToRemove.name,
+            price: itemToRemove.price_rub,
+          },
+          itemToRemove.quantity
+        );
+      }
       setCart(updated);
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
@@ -200,6 +212,18 @@ export default function CartPage() {
     setError(null);
 
     try {
+      if (activeCart?.items) {
+        trackBeginCheckout(
+          activeCart.items.map((i) => ({
+            item_id: i.product_id,
+            item_name: i.name,
+            price: i.price_rub,
+            quantity: i.quantity,
+          })),
+          10.0
+        );
+      }
+
       const res = await apiFetch<{ id: string }>("/orders", {
         method: "POST",
       });

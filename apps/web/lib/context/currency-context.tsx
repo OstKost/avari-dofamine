@@ -58,6 +58,11 @@ export function CurrencyProvider({ children }: { children: React.ReactNode }) {
     setCurrencyState(c);
     try {
       localStorage.setItem("dofamine_currency", c);
+      if (typeof window !== "undefined") {
+        import("@/lib/analytics/tracker").then(({ trackGoal }) => {
+          trackGoal("switch_currency", { currency: c });
+        }).catch(() => {});
+      }
     } catch {
       // Ignore
     }

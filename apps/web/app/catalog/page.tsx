@@ -1,8 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ShoppingBag, MapPin, ChevronRight, Sparkles } from "lucide-react";
 import { SearchBar } from "@/components/features/catalog/search-bar";
 import { ProductCard } from "@/components/features/catalog/product-card";
 import { Badge } from "@/components/ui/badge";
+import { BreadcrumbsJsonLd } from "@/components/seo/JsonLd";
 import { apiFetch } from "@/lib/api/client";
 
 export const dynamic = "force-dynamic";
@@ -53,12 +55,51 @@ const SUPER_CATEGORIES: SuperCategory[] = [
   { id: "food", label: "🍕 Еда & Рестораны", icon: "🍕", slugPrefixes: ["food-", "restaurant-"] },
 ];
 
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ category_id?: string; super?: string; q?: string }>;
+}): Promise<Metadata> {
+  const { super: superParam, q } = await searchParams;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dofamine.avari.dev";
+
+  let title = "Каталог товаров | Avari Dofamine";
+  let description = "Каталог товаров по 10 ₽ в Avari Dofamine. Огромный выбор категорий, интерактивная симуляция доставки 100–500м.";
+
+  if (q) {
+    title = `Поиск: ${q} | Avari Dofamine`;
+    description = `Результаты поиска товаров по запросу "${q}" в маркетплейсе Avari Dofamine.`;
+  } else if (superParam && superParam !== "all") {
+    const found = SUPER_CATEGORIES.find((s) => s.id === superParam);
+    if (found) {
+      title = `${found.label} — Каталог | Avari Dofamine`;
+      description = `Каталог товаров категории ${found.label} в маркетплейсе Avari Dofamine. Все товары по 10 ₽ с доставкой в ближайший ПВЗ.`;
+    }
+  }
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: `${siteUrl}/catalog`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/catalog`,
+      type: "website",
+      images: ["/og-image.png"],
+    },
+  };
+}
+
 export default async function CatalogPage({
   searchParams,
 }: {
   searchParams: Promise<{ category_id?: string; super?: string; q?: string }>;
 }) {
   const { category_id, super: superParam, q } = await searchParams;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://dofamine.avari.dev";
 
   let categories: Category[] = [];
   let products: Product[] = [];
@@ -110,8 +151,16 @@ export default async function CatalogPage({
     );
   }
 
+  const breadcrumbs = [
+    { name: "Главная", url: "/" },
+    { name: "Каталог", url: "/catalog" },
+    ...(superFilter ? [{ name: superFilter.label, url: `/catalog?super=${superFilter.id}` }] : []),
+  ];
+
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8 space-y-6">
+      <BreadcrumbsJsonLd items={breadcrumbs} siteUrl={siteUrl} />
+
       {/* Pickup Point Selection Pill */}
       <Link href="/onboarding" className="block group">
         <div className="flex items-center justify-between p-3.5 px-4 rounded-2xl bg-[#0B1622]/90 border border-[#1E3A50] group-hover:border-teal-400/50 group-hover:shadow-glow-teal transition-all">
